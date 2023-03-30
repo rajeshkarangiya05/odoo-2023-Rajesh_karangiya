@@ -7,10 +7,12 @@
 	"website":"https://www.aktivsoftware.com",
 	"data":[
 		"security/ir.model.access.csv",
-		"views/medical_store_management_medicine_view.xml",
-		"views/medical_store_management_health_view.xml",
-		"views/stock_view.xml",
-		"views/symptoms_data.xml"
+		"data/ir_sequence_data.xml",
+		"views/medicine_information_view.xml",
+		"views/pricing_data.xml",
+		"views/health_symptoms_view.xml",
+		"views/medicine_stock_view.xml",
+		"views/symptoms_data_view.xml"
 
 
 	],

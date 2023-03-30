@@ -7,6 +7,5 @@ class SymptomsData(models.Model):
 	_description="Symptoms Data"
 
 
-	name=fields.Char(string="Name")
 	medicine_id = fields.Many2one("medicine.information",string="Name of Medicine")
 	symptoms_ids= fields.Many2many("health.symptoms","symptoms_oder_id",string="Symptoms")

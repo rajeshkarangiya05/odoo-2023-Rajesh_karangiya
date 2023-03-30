@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="medicine_information_view_tree" model="ir.ui.view">
+		<field name="name">medicine.information.tree</field>
+        <field name="model">medicine.information</field>
+        <field name="arch" type="xml">
+                <tree>
+                    <field name="batch_no"/>
+                    <field name="name"/>
+                    <field name="ref_no"/>
+                    <field name="company"/>
+                    <field name="is_major"/>
+                    <field name="expiry"/>
+                </tree>
+        </field>
+    </record>
+    <record id="medicine_information_view_form" model="ir.ui.view">
+        <field name="name">medicine.information.form</field>
+        <field name="model">medicine.information</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_view_symptoms"
+                            type="object"
+                            class="btn btn-primary"
+                            string="Symptoms">
+                    </button>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_stock"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o" string="Stock">
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="batch_no"/>
+                            <field name="name"/>
+                            <field name="ref_no"/>
+                            <field name="company"/>
+                        </group>
+                        <group>
+                            <field name="mfg_date"/>
+                            <field name="exp_date"/>
+                            <field name="expiry"/>
+                        </group>
+                    </group>
+                    <group>
+                        
+                        <field name="is_major"/>
+                        <field name="dosage"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record> 
+
+    <record id="medical_store_management_medicine_view" model="ir.actions.act_window">
+        <field name="name">Medicine Information</field>
+        <field name="res_model">medicine.information</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="medicine_information_menu"
+            name="Menu"
+            sequence="0"/>
+
+    <menuitem id="medicine_information_medical"
+            name="Details"
+            parent="medicine_information_menu"
+            sequence="1"/>
+
+    <menuitem id="medicine_information"
+            name="Medical Store"
+            parent="medicine_information_medical"
+            action="medical_store_management_medicine_view"
+            sequence="0"/>
+
+</odoo>

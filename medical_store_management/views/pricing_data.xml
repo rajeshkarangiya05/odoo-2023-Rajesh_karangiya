@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="pricing_view_tree" model="ir.ui.view">
+		<field name="name">pricing.view.tree</field>
+        <field name="model">pricing.data</field>
+        <field name="arch" type="xml">
+                <tree>
+                    <field name="name_id"/>
+                    <field name="symptoms"/>
+                </tree>
+        </field>
+    </record>
+    <record id="pricing_view_form" model="ir.ui.view">
+        <field name="name">pricing.view.form</field>
+        <field name="model">pricing.data</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Invoice">
+                            
+                            <group col="4">
+                                <group>
+                                    <field name="name_id"/>
+                                </group>
+                                <group>
+                                    <field name="symptoms" widget="many2many_tags"/>
+                                </group>
+                                <group>
+                                    <field name ="price"/>
+                                </group>
+                                <group>
+                                    <field name ="quantity"/>
+                                </group>
+                            </group>
+                            
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record> 
+
+    <record id="pricing_view" model="ir.actions.act_window">
+        <field name="name">Pricing data</field>
+        <field name="res_model">pricing.data</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <menuitem id="pricing_data"
+            name="Pricing"
+            parent="medicine_information_menu"
+            action ="pricing_view"
+            sequence="2"/>
+
+</odoo>
