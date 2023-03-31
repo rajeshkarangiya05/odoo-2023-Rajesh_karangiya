@@ -11,25 +11,26 @@ class MedicineInformation(models.Model):
     _description="medicine"
 
     batch_no=fields.Char(string="Batch No.",help="", readonly=True)
-    name = fields.Char(string="Name of Medicine")
+    name = fields.Char(string="Name of Medicine", required=True)
     ref_no = fields.Integer(string="Reference No.")
     company = fields.Char(string="Company name")
     is_major = fields.Boolean(string="Is major?")
     dosage= fields.Selection(selection=[("tablet","tablet"),("capsule","capsule"),("liquid","liquid")], string="Dosage Form")
     mfg_date = fields.Date(String="Manufacturing Date")
     exp_date = fields.Date(string="Expiry Date")
-    expiry = fields.Char(string="Expiry month", compute="_compute_expiry_months",store=True)
+    expiry = fields.Integer(string="Expiry month", compute="_compute_expiry_months",store=True)
+    
 
     @api.model
     def create(self,vals):
+        print("==================>",type(vals["exp_date"]))
         if not vals["exp_date"] or str(vals["exp_date"]) < str(datetime.now().date()):
             raise ValidationError("Enter valid expiry date")
         if not vals.get('batch_no'):
             seq = self.env['ir.sequence'].next_by_code('medicine.information')
             date_three=date.today().strftime("%b")
-            vals["batch_no"] = seq[0:4]+date_three+"/"+seq[4:]
-        record_exp_data = self.env["medicine.information"].search([("expiry",">","0")])
-        print("record_exp_data================>",record_exp_data)
+            vals["batch_no"] = seq[0:4]+date_three+"/"+seq[4:] 
+
         return super(MedicineInformation,self).create(vals)
 
 
@@ -41,7 +42,7 @@ class MedicineInformation(models.Model):
 
 
 
-    # defining function for header button named "symptoms"
+    # defining function for smart button named "symptoms"
     def action_view_symptoms(self):
         symptoms=self.env['symptoms.data'].search([('medicine_id','=',self.id)])
         action= {
@@ -53,9 +54,8 @@ class MedicineInformation(models.Model):
         }
         if len(symptoms) != 0:
             action.update({
-                'views': [[False, "form"]],
-                'view_mode': 'form',
-                'res_id': symptoms.id,
+                'views': [[False, "tree"], [False, "form"]],
+                'view_mode': 'tree, form',
             })
         return action
 
