@@ -43,6 +43,7 @@
                             <field name="mfg_date"/>
                             <field name="exp_date"/>
                             <field name="expiry"/>
+
                         </group>
                     </group>
                     <group>

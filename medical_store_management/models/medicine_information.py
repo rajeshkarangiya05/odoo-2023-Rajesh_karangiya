@@ -20,24 +20,31 @@ class MedicineInformation(models.Model):
     exp_date = fields.Date(string="Expiry Date")
     expiry = fields.Integer(string="Expiry month", compute="_compute_expiry_months",store=True)
     
-
+    # create method for expiry date and batch number
     @api.model
     def create(self,vals):
-        print("==================>",type(vals["exp_date"]))
-        if not vals["exp_date"] or str(vals["exp_date"]) < str(datetime.now().date()):
+        if not vals["exp_date"] :
             raise ValidationError("Enter valid expiry date")
         if not vals.get('batch_no'):
             seq = self.env['ir.sequence'].next_by_code('medicine.information')
             date_three=date.today().strftime("%b")
-            vals["batch_no"] = seq[0:4]+date_three+"/"+seq[4:] 
-
+            vals["batch_no"] = seq[0:4]+date_three+"/"+seq[4:]
+            print("\n\n\n\n\n",vals)
         return super(MedicineInformation,self).create(vals)
 
-
+    # write method for validating for expiry date
     def write(self,vals):
         if not vals["exp_date"] or str(vals["exp_date"]) < str(datetime.now().date()):
             raise ValidationError("Enter valid expiry date")
         res = super(MedicineInformation, self).write(vals)
+        return res
+
+    # write default method to give default comapany name
+    @api.model
+    def default_get(self,fields):
+        res = super(MedicineInformation, self).default_get(fields)
+        if 'company' in fields:
+            res['company'] = "Zydus Limited"
         return res
 
 
@@ -82,7 +89,7 @@ class MedicineInformation(models.Model):
             })
         return action
 
-    # defining compute function
+    # defining compute function for expiry month
     @api.depends("exp_date")
     def _compute_expiry_months(self):
         for data in self:
@@ -90,14 +97,6 @@ class MedicineInformation(models.Model):
             if data.mfg_date:
                 month_difference = relativedelta.relativedelta(data.exp_date,data.mfg_date)
                 data.expiry=month_difference.months + (month_difference.years*12)
-    
-    # @api.depends("exp_date")
-    # def _set_expiry_date(self):
-    #     for rec in self:
-    #         if rec.exp_date:
-    #             rec.exp_date=True
-    #         else:
-    #             rec.exp_date=False
 
 
 
