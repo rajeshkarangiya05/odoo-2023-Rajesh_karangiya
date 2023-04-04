@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="book_details_view_tree" model="ir.ui.view">
+		<field name="name">book.details.tree</field>
+        <field name="model">book.details</field>
+        <field name="arch" type="xml">
+                <tree>
+                    <field name="book_id"/>
+                    <field name="name_id"/>
+                    <field name="book_name"/>
+                    <field name="price"/>
+                    <field name="pages"/>
+                    <field name="quantity"/>
+                </tree>
+        </field>
+    </record>
+    <record id="book_details_view_form" model="ir.ui.view">
+        <field name="name">book.details.form</field>
+        <field name="model">book.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="book_id"/>
+                        <field name="name_id"/>
+                        <field name="book_name"/>
+                        <field name="price"/>
+                        <field name="pages"/>
+                        <field name="quantity"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record> 
+
+    <record id="book_details_view" model="ir.actions.act_window">
+        <field name="name">Book Details</field>
+        <field name="res_model">book.details</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="book_details"
+            name="Book Details"
+            parent="book_details_data"
+            action="book_details_view"
+            sequence="2"/>
+
+</odoo>
