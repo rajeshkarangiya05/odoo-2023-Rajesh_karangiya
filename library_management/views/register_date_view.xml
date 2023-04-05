@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="register_date_view_tree" model="ir.ui.view">
+		<field name="name">register.date.tree</field>
+        <field name="model">register.date</field>
+        <field name="arch" type="xml">
+                <tree>
+                    <field name="bookid"/>
+                    <field name="incoming_date"/>
+                    <field name="outgoing_date"/>
+                </tree>
+        </field>
+    </record>
+    <record id="register_date_view_form" model="ir.ui.view">
+        <field name="name">register.date.form</field>
+        <field name="model">register.date</field>
+        <field name="arch" type="xml">
+            <form> 
+                <sheet>
+                    <group>
+                        <field name="bookid"/>
+                        <field name="incoming_date"/>
+                        <field name="outgoing_date"/>
+                    </group>                    
+                </sheet>
+            </form>
+        </field>
+    </record> 
+
+    <record id="action_register_date_view" model="ir.actions.act_window">
+        <field name="name">Register Date</field>
+        <field name="res_model">register.date</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_register_date"
+            name="Register Date"
+            parent="book_details_data"
+            action="action_register_date_view"
+            sequence="4"/>
+
+</odoo>

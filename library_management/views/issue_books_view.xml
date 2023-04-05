@@ -20,7 +20,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="issue_book_view" class="oe_highlight" states="draft" string="Issue" type="object"/>
+                    <button name="issue_view" class="oe_highlight" states="draft" string="Issue" type="object"/>
                     <button name="return_view" class="oe_highlight" states="issued" string="Return" type="object"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,issued,return"/>
                 </header> 
@@ -30,7 +30,6 @@
                         <field name="email"/>
                         <field name="phone"/>
                         <field name="address"/>
-                        
                     </group>
                     <notebook>
                         <page string="Book details" >
@@ -42,7 +41,6 @@
                             </field>
                         </page>
                     </notebook>
-                    
                 </sheet>
             </form>
         </field>
