@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
                 <tree>
                     <field name="bookid"/>
+                    <field name="user_id"/>
                     <field name="incoming_date"/>
                     <field name="outgoing_date"/>
                 </tree>
@@ -19,6 +20,7 @@
                 <sheet>
                     <group>
                         <field name="bookid"/>
+                        <field name="user_id"/>
                         <field name="incoming_date"/>
                         <field name="outgoing_date"/>
                     </group>                    
@@ -30,7 +32,7 @@
     <record id="action_register_date_view" model="ir.actions.act_window">
         <field name="name">Register Date</field>
         <field name="res_model">register.date</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree</field>
     </record>
 
     <menuitem id="menu_register_date"

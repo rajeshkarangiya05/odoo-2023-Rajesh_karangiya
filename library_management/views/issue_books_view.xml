@@ -20,6 +20,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="return_users" type="object" class="btn-primary" string="user data"/>
                     <button name="issue_view" class="oe_highlight" states="draft" string="Issue" type="object"/>
                     <button name="return_view" class="oe_highlight" states="issued" string="Return" type="object"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,issued,return"/>

@@ -43,13 +43,13 @@ class IssueBooks(models.Model):
 				print("data",data.id)
 				print("quantity =====>", data.issued_quantity)
 				quantity = data.issued_quantity
-				for j in range(quantity+1):					
-					register_id = [{"bookid":data.id}]
+				for _ in range(quantity):					
+					register_id = [{"bookid":data.id,
+					'outgoing_date':self.issue_date,
+					'user_id':self.name_id.id}]
 					g = self.env["register.date"].create(register_id)
-					register_outdate = [{'outgoing_date':self.issue_date}]
-					p = self.env["register.date"].search([('outgoing_date','=',False)])
-					p.outgoing_date = self.issue_date
-					print("================>",p)
+
+
 			
 	def return_view(self):
 		for rec in self:
@@ -59,4 +59,11 @@ class IssueBooks(models.Model):
 				t = self.env["register.date"].search([('bookid','=',data.id)])
 				print("t ====>",t)
 				t.incoming_date = datetime.now().date()
+
+
+
+	def return_users(self):
+		fields = ['name','phone','email']
+		partner_id = self.env["res.partner"].read(fields)
+		print("===============>",partner_id)
 			
