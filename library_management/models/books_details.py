@@ -14,7 +14,7 @@ class BookAuthor(models.Model):
 	pages = fields.Integer(string="Pages")
 	book_id = fields.Char(string="BooK ID", readonly="True")
 	quantity = fields.Integer(string="Quantity")
-	stock_quantity = fields.Integer(string="Quantity",compute="_compute_stock_quantity")
+	stock_quantity = fields.Integer(string="Stock Quantity",compute="_compute_stock_quantity")
 
 	# defining sequence for book id
 	@api.model
@@ -47,13 +47,7 @@ class BookAuthor(models.Model):
 
 
 	def _compute_stock_quantity(self):
-		for rec in self:
-			rec.stock_quantity=0
-			if rec.stock_quantity:
-				t = self.env["register.books"].search([])
-				for data in t:
-					if data.books_lines_ids.book_name_id.book_name == self.book_name:
-						rec.stock_quantity = data.books_lines_ids.issued_quantity
-
-
+		t = self.env["register.date"].search_count([('books_id_name','=',self.id), ('incoming_date','=',False)])
+		self.stock_quantity = self.quantity - t
+		print("=======================.",self.stock_quantity)
 

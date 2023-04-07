@@ -7,6 +7,7 @@
 	"description":"Library Management",
 	"category":"Management",
 	"website":"https://www.aktivsoftware.com",
+	"license": "LGPL-3",
 	"data":[
 		"security/ir.model.access.csv",
 		"data/ir_sequence_book_id.xml",

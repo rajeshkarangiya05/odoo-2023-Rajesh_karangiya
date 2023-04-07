@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
                 <tree>
                     <field name="bookid"/>
+                    <field name="books_id_name"/>
                     <field name="user_id"/>
                     <field name="incoming_date"/>
                     <field name="outgoing_date"/>
@@ -20,6 +21,7 @@
                 <sheet>
                     <group>
                         <field name="bookid"/>
+                        <field name="books_id_name"/>
                         <field name="user_id"/>
                         <field name="incoming_date"/>
                         <field name="outgoing_date"/>

@@ -17,7 +17,7 @@ class IssueBooks(models.Model):
 	books_lines_ids = fields.One2many("register.books","empty_id",string="Books details")
 	state = fields.Selection(selection=[('draft', 'Draft'),
 		('issued', 'Issued'),('return','Return')],
-		 string='Status', required=True, readonly=True, copy=False, tracking=True, default='draft')
+		 string='Status', required=True, readonly=True, copy=False, default='draft')
 			
 
 	@api.onchange("name_id")
@@ -46,24 +46,20 @@ class IssueBooks(models.Model):
 				for _ in range(quantity):					
 					register_id = [{"bookid":data.id,
 					'outgoing_date':self.issue_date,
-					'user_id':self.name_id.id}]
-					g = self.env["register.date"].create(register_id)
+					'user_id':self.name_id.id,
+					'books_id_name':data.book_name_id}]
+					issueData = self.env["register.date"].create(register_id)
 
-
-			
 	def return_view(self):
 		for rec in self:
 			rec.write({'state': "return"})
 			for data in self.books_lines_ids:
-				print("data",data.id)
-				t = self.env["register.date"].search([('bookid','=',data.id)])
-				print("t ====>",t)
-				t.incoming_date = datetime.now().date()
+				returnData = self.env["register.date"].search([('bookid','=',data.id)])
+				returnData.incoming_date = datetime.now().date()
 
 
 
 	def return_users(self):
-		fields = ['name','phone','email']
-		partner_id = self.env["res.partner"].read(fields)
-		print("===============>",partner_id)
-			
+		fields = ['name', 'email']
+		partner_id = self.env['res.partner'].read_group([('id','>',10)], fields=fields, groupby=['email'], lazy=False)
+		print("read =============>",partner_id)
