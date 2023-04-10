@@ -21,16 +21,25 @@
             <form>
                 <header>
                     <button name="return_users" type="object" class="btn-primary" string="user data"/>
+                    <button name="add_new_data" type="object" class="btn-primary" string="CreateDummyBook"/>
+                    <button name="Delete_given_data" type="object" class="btn-primary" string="DeleteDummys"/>
                     <button name="issue_view" class="oe_highlight" states="draft" string="Issue" type="object"/>
                     <button name="return_view" class="oe_highlight" states="issued" string="Return" type="object"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,issued,return"/>
                 </header> 
                 <sheet>
                     <group>
-                        <field name="name_id"/>
-                        <field name="email"/>
-                        <field name="phone"/>
-                        <field name="address"/>
+                        <group>
+                            <field name="name_id"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="address"/>
+                        </group>
+                        <group>
+                            <field name="book_name"/>
+                            <field name="quantity"/>
+
+                        </group>
                     </group>
                     <notebook>
                         <page string="Book details" >
@@ -38,6 +47,7 @@
                                 <tree editable="bottom">
                                     <field name="book_name_id"/>
                                     <field name="issued_quantity"/>
+                                    <field name="book_data_ids" widget="many2many_tags"/>
                                 </tree>
                             </field>
                         </page>

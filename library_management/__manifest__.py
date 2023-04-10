@@ -16,6 +16,7 @@
 		"views/books_details_view.xml",
 		"views/register_books_view.xml",
 		"views/register_date_view.xml",
+		"views/book_type_view.xml",
 
 
 

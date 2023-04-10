@@ -15,6 +15,7 @@ class BookAuthor(models.Model):
 	book_id = fields.Char(string="BooK ID", readonly="True")
 	quantity = fields.Integer(string="Quantity")
 	stock_quantity = fields.Integer(string="Stock Quantity",compute="_compute_stock_quantity")
+	book_types_ids = fields.Many2many("book.type", "book_type_id", string="Book Types")
 
 	# defining sequence for book id
 	@api.model

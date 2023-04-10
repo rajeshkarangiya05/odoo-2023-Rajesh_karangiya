@@ -18,6 +18,8 @@ class IssueBooks(models.Model):
 	state = fields.Selection(selection=[('draft', 'Draft'),
 		('issued', 'Issued'),('return','Return')],
 		 string='Status', required=True, readonly=True, copy=False, default='draft')
+	book_name = fields.Many2one("book.details",string="Book Name")
+	quantity = fields.Integer(string="Quantity")
 			
 
 	@api.onchange("name_id")
@@ -61,5 +63,44 @@ class IssueBooks(models.Model):
 
 	def return_users(self):
 		fields = ['name', 'email']
-		partner_id = self.env['res.partner'].read_group([('id','>',10)], fields=fields, groupby=['email'], lazy=False)
+		partner_id = self.env['book.author'].search_read([('id','>',0)])
 		print("read =============>",partner_id)
+
+	def unlink(self):
+		print("calling unlink method::::::::::",self)
+		# print(self.books_lines_ids.id)
+		for lines in self.books_lines_ids:
+			record = self.env["register.books"].search([('id','=',lines.id)])
+			record.unlink()
+		return super(IssueBooks,self).unlink()
+
+	# methos for adding new book ib registration book model
+	def add_new_data(self):
+		record_book = self.env["book.details"].search([('id','=',self.book_name.id)])
+		vals= {
+			"book_name_id": self.book_name.id,
+			"issued_quantity":self.quantity,
+			"book_data_ids":[(6,0, record_book.book_types_ids.ids)]
+		}
+		self.write({
+				"books_lines_ids":[(0,0, vals)]
+			})
+
+	def Delete_given_data(self):
+		pass
+		
+
+
+
+
+
+
+    # def copy(self, default=None):
+    #     print("\n\n self:::::::::::", self)
+    #     default = {
+    #         'name': 'Kinjal'
+    #     }
+    #     # default['name'] = 'Kinjal'
+    #     res = super(ProfessorRecord, self).copy(default=default)
+    #     print("\n\n\n res:::::::::::", res)
+    #     return res

@@ -7,6 +7,8 @@
                 <tree>
                     <field name="book_name_id"/>
                     <field name="issued_quantity"/>
+                    <field name="book_data_ids" widget="many2many_tags"/>
+
                 </tree>
         </field>
     </record>
@@ -19,6 +21,7 @@
                     <group>
                         <field name="book_name_id"/>
                         <field name="issued_quantity"/>
+                        <field name="book_data_ids" widget="many2many_tags"/>
                     </group>
                 </sheet>
             </form>
