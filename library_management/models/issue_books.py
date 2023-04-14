@@ -101,11 +101,6 @@ class IssueBooks(models.Model):
 	# defining method for button "DeleteDummys" deleting records in register books model
 	def Delete_given_data(self):
 		pass
-
-
-	# defining wizard
-
-	# def action_issue_button(self):
 		
 
 

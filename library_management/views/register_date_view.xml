@@ -11,6 +11,7 @@
                     <field name="incoming_date"/>
                     <field name="outgoing_date"/>
                     <field name="charges"/>
+                    <field name="int_diff"/>
                 </tree>
         </field>
     </record>

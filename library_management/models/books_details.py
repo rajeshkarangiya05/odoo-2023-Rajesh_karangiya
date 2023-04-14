@@ -54,6 +54,5 @@ class BookDetails(models.Model):
 		self.stock_quantity = self.quantity - t
 		print("=======================.",self.stock_quantity)
 
-	#defining method for charge field
-	# @api.depends("")
+	
 
