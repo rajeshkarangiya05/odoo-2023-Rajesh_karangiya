@@ -18,27 +18,19 @@ class RegisterDate(models.Model):
 	# defining method for charge field
 	@api.depends("incoming_date")
 	def _compute_charges(self):
-		res = super(RegisterDate,self)
 		for element in self:
 			element.charges=0
-			print("int_diff",element.int_diff)
-			if element.outgoing_date:
+			if not element.incoming_date:
+		
 				get_defaultcharge = self.env["book.details"].search([('id','=',element.books_id_name)])
-				print("get_defaultcharge.charges",get_defaultcharge.charges)
-				expected_return_date = self.env["register.books"].search([('id','=',element.bookid)])
-				print("expected_return_date",expected_return_date)
-				if not element.incoming_date:
-					if expected_return_date:						
-						in_date = element.outgoing_date
-						current_day = datetime.now().date()
-						difference_day = (current_day-in_date).days
-						if element.int_diff:
-							multiple =  difference_day//element.int_diff
-							# if multiple <=0:
-							# 	element.charges=get_defaultcharge.charges
-							# else:
-							print("get_defaultcharge.charges",get_defaultcharge.charges)
-							element.charges=get_defaultcharge.charges+(multiple*get_defaultcharge.charges)
+				expected_return_date = self.env["register.books"].search([('id','=',element.bookid)])					
+		
+				# if element.int_diff:					
+				in_date = element.outgoing_date
+				current_day = datetime.now().date()
+				difference_day = (current_day-in_date).days					
+				multiple =  difference_day//5
+				element.charges=get_defaultcharge.charges+(multiple*get_defaultcharge.charges)
 
 
 		

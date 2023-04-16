@@ -42,11 +42,8 @@ class IssueBooks(models.Model):
 	def issue_view(self):
 		for rec in self:
 			rec.write({'state': "issued"})
-			print(self.books_lines_ids)
 			self.issue_date = datetime.now().date()
 			for data in self.books_lines_ids:
-				print("data",data.id)
-				print("quantity =====>", data.issued_quantity)
 				quantity = data.issued_quantity
 				for _ in range(quantity):					
 					register_id = [{"bookid":data.id,
@@ -89,14 +86,34 @@ class IssueBooks(models.Model):
 	# defining method for button "CreateDummyBook" adding new book in register books model
 	def add_new_data(self):
 		record_book = self.env["book.details"].search([('id','=',self.book_name.id)])
+		print("record_register_book",record_register_book)
 		vals= {
 			"book_name_id": self.book_name.id,
 			"issued_quantity":self.quantity,
 			"book_data_ids":[(6,0, record_book.book_types_ids.ids)]
 		}
-		self.write({
-				"books_lines_ids":[(0,0, vals)]
-			})
+		
+		if not self.books_lines_ids:
+			print("******** record_book.id",record_book.id)
+			print("********",self.books_lines_ids.book_name_id.id)
+			self.write({
+							"books_lines_ids":[(0,0, vals)]
+						})
+
+		else:
+			print("step3")
+			unique = self.env
+			for lines in self.books_lines_ids:
+				if record_book.id == lines.book_name_id.id:
+					print("\n *same record")
+					valss={
+						"issued_quantity":lines.issued_quantity+self.quantity
+					}
+					self.write({
+						"books_lines_ids":[(1,lines.id,valss)]
+						})
+				
+
 
 	# defining method for button "DeleteDummys" deleting records in register books model
 	def Delete_given_data(self):
