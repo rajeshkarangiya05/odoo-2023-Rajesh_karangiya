@@ -8,9 +8,11 @@
 	"category":"Management",
 	"website":"https://www.aktivsoftware.com",
 	"license": "LGPL-3",
+	"depends":["mail"],
 	"data":[
 		"security/ir.model.access.csv",
 		"data/ir_sequence_book_id.xml",
+		"data/mail_template_view.xml",
 		"views/issue_books_view.xml",
 		"views/book_author_view.xml",
 		"views/books_details_view.xml",

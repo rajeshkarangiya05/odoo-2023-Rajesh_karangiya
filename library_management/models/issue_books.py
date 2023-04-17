@@ -20,6 +20,9 @@ class IssueBooks(models.Model):
 		 string='Status', required=True, readonly=True, copy=False, default='draft')
 	book_name = fields.Many2one("book.details",string="Book Name")
 	quantity = fields.Integer(string="Quantity")
+	user_send_email = fields.Char(string="Send Mail To")
+	check_box = fields.Boolean("Manual Entry")
+	payable = fields.Integer("Payable")
 	
 			
 	# defining method for automatic filling the fields 
@@ -47,10 +50,14 @@ class IssueBooks(models.Model):
 				quantity = data.issued_quantity
 				for _ in range(quantity):					
 					register_id = [{"bookid":data.id,
+					'issue_book_id':self.id,
 					'outgoing_date':self.issue_date,
 					'user_id':self.name_id.id,
 					'books_id_name':data.book_name_id}]
 					issueData = self.env["register.date"].create(register_id)
+		template = self.env.ref('library_management.user_mail_id').id
+		template_id = self.env['mail.template'].browse(template)
+		template_id.send_mail(self.id, force_send=True)
 		return {
 			"type":"ir.actions.act_window",
 			"name":"_(Return Date)",
@@ -58,6 +65,7 @@ class IssueBooks(models.Model):
 			"view_mode":"form",
 			"target":"new",
 		}
+		
 
 	# defining method for return button
 	def return_view(self):
@@ -85,6 +93,10 @@ class IssueBooks(models.Model):
 
 	# defining method for button "CreateDummyBook" adding new book in register books model
 	def add_new_data(self):
+		for element in self.books_lines_ids:
+				register_book_data = self.env["register.books"].search([("id","=",element.id)])
+				register_book_data.issue_bookline_ids = element.id
+
 		record_book = self.env["book.details"].search([('id','=',self.book_name.id)])
 		print("record_register_book",record_register_book)
 		vals= {
@@ -93,24 +105,21 @@ class IssueBooks(models.Model):
 			"book_data_ids":[(6,0, record_book.book_types_ids.ids)]
 		}
 		
-		if not self.books_lines_ids:
-			print("******** record_book.id",record_book.id)
-			print("********",self.books_lines_ids.book_name_id.id)
+
+		if not self.books_lines_ids  or self.book_name.id not  in self.books_lines_ids.book_name_id.ids:
 			self.write({
 							"books_lines_ids":[(0,0, vals)]
 						})
-
 		else:
-			print("step3")
-			unique = self.env
 			for lines in self.books_lines_ids:
-				if record_book.id == lines.book_name_id.id:
+				record_register_book = self.env["register.books"].search([('id','=',lines.id)])
+				if record_book.id == lines.book_name_id.id and lines.id == record_register_book.issue_bookline_ids:
 					print("\n *same record")
-					valss={
+					update={
 						"issued_quantity":lines.issued_quantity+self.quantity
 					}
 					self.write({
-						"books_lines_ids":[(1,lines.id,valss)]
+						"books_lines_ids":[(1,lines.id,update)]
 						})
 				
 

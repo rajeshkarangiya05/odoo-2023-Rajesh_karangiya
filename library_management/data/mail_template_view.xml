@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="user_mail_id" model="mail.template">
+        <field name="name">user Email Template</field>
+        <field name="model_id" ref="library_management.model_issue_books"/>
+        <!-- <field name="email_from">{{"rajesh@icreativetechnolabs.com"}}</field> -->
+        <field name="email_to">{{object.user_send_email}}</field>
+        <field name="subject">User Email</field>
+        <field name="body_html" type="html">
+            <table>
+                <tr>
+                    <td>
+                        Dear <t t-out="object.name_id.name"/>,
+                        <br/>
+                        <br/>
+                        <p>
+                            You have issued books from our library<br/>
+                            For any other service's visit our wesite<br/>
+
+                            Thank you and have a greate day.                            
+                        </p>
+                        Regards,
+                    </td>
+                </tr>
+            </table>
+        </field>
+  </record>
+</odoo>

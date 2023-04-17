@@ -5,6 +5,7 @@
         <field name="model">register.date</field>
         <field name="arch" type="xml">
                 <tree>
+                    <field name="issue_book_id"/>
                     <field name="bookid"/>
                     <field name="books_id_name"/>
                     <field name="user_id"/>
@@ -22,6 +23,7 @@
             <form> 
                 <sheet>
                     <group>
+                        <field name="issue_book_id"/>
                         <field name="bookid"/>
                         <field name="books_id_name"/>
                         <field name="user_id"/>

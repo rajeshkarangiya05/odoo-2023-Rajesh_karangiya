@@ -30,20 +30,22 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name_id"/>
-                            <field name="email"/>
-                            <field name="phone"/>
-                            <field name="address"/>
+                            <field name="name_id" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
+                            <field name="email" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
+                            <field name="phone" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
+                            <field name="address" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
+                            <field name="user_send_email" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
                         </group>
                         <group>
-                            <field name="book_name"/>
-                            <field name="quantity"/>
-
+                            <field name="check_box" attrs="{'invisible':['|',('state','=','issued'),('state','=','return')]}"/>
+                            <field name="book_name" attrs="{'invisible':['|','|',('check_box','=',False),('state','=','issued'),('state','=','return')]}"/>
+                            <field name="quantity" attrs="{'invisible':['|','|',('check_box','=',False),('state','=','issued'),('state','=','return')]}"/>               
+                            <field name="payable" attrs="{'invisible':[('state','=','draft')],'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Book details" >
-                            <field name="books_lines_ids">
+                            <field name="books_lines_ids" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}">
                                 <tree editable="bottom">
                                     <field name="book_name_id"/>
                                     <field name="issued_quantity"/>
