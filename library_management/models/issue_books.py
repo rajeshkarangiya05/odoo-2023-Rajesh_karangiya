@@ -43,6 +43,7 @@ class IssueBooks(models.Model):
 
 	# defining method for issue button
 	def issue_view(self):
+		print(" ******************self.browse ",self.browse())
 		for rec in self:
 			rec.write({'state': "issued"})
 			self.issue_date = datetime.now().date()
@@ -55,7 +56,7 @@ class IssueBooks(models.Model):
 					'user_id':self.name_id.id,
 					'books_id_name':data.book_name_id}]
 					issueData = self.env["register.date"].create(register_id)
-		template = self.env.ref('library_management.user_mail_id').id
+		template = self.env.ref('library_management.user_mail_id').id	
 		template_id = self.env['mail.template'].browse(template)
 		template_id.send_mail(self.id, force_send=True)
 		return {
@@ -98,14 +99,12 @@ class IssueBooks(models.Model):
 				register_book_data.issue_bookline_ids = element.id
 
 		record_book = self.env["book.details"].search([('id','=',self.book_name.id)])
-		print("record_register_book",record_register_book)
 		vals= {
 			"book_name_id": self.book_name.id,
 			"issued_quantity":self.quantity,
 			"book_data_ids":[(6,0, record_book.book_types_ids.ids)]
 		}
 		
-
 		if not self.books_lines_ids  or self.book_name.id not  in self.books_lines_ids.book_name_id.ids:
 			self.write({
 							"books_lines_ids":[(0,0, vals)]

@@ -19,25 +19,12 @@ class RegisterDate(models.Model):
 	# defining method for charge field
 	@api.depends("incoming_date")
 	def _compute_charges(self):
-<<<<<<< HEAD
-=======
 		count = 0
->>>>>>> 9a7fe0c ([Updated]-library_management)
 		for element in self:
 			element.charges=0
 			if not element.incoming_date:
 		
 				get_defaultcharge = self.env["book.details"].search([('id','=',element.books_id_name)])
-<<<<<<< HEAD
-				expected_return_date = self.env["register.books"].search([('id','=',element.bookid)])					
-		
-				# if element.int_diff:					
-				in_date = element.outgoing_date
-				current_day = datetime.now().date()
-				difference_day = (current_day-in_date).days					
-				multiple =  difference_day//5
-				element.charges=get_defaultcharge.charges+(multiple*get_defaultcharge.charges)
-=======
 				
 				
 				expected_return_date = self.env["register.books"].search([('id','=',element.bookid)])					
@@ -59,7 +46,6 @@ class RegisterDate(models.Model):
 		# 	}
 		# 	write_payable = issue_data.write(val)
 
->>>>>>> 9a7fe0c ([Updated]-library_management)
 
 
 		

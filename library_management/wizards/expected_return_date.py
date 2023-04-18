@@ -8,11 +8,7 @@ class ExpectedReturnDate(models.TransientModel):
 
     def action_confirm(self):
         t = self.env["issue.books"].search([('id','=',self._context["active_id"])])
-<<<<<<< HEAD
-        u = self.env["register.date"].search([('bookid','=',t.books_lines_ids.id)])
-=======
         u = self.env["register.date"].search([('bookid','=',t.books_lines_ids.ids)])
->>>>>>> 9a7fe0c ([Updated]-library_management)
         print("u",u)
         for res in u:
             res.int_diff = self.expiry
