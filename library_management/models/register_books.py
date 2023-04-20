@@ -11,7 +11,8 @@ class RegisterBooks(models.Model):
 	empty_id = fields.Many2one("issue.books", string="Empty")
 	issued_quantity = fields.Integer(string="Quantity")
 	book_data_ids = fields.Many2many("book.type","book_data_ids", string="Book Types")
-
+	return_date = fields.Date(string="Expected Return Date")
+	charges = fields.Integer(string="Charges")
 	
 	@api.onchange("book_name_id")
 	def onchange_book_type(self):
@@ -22,6 +23,9 @@ class RegisterBooks(models.Model):
 			self.update({
 				"book_data_ids":[(6,0,record.book_types_ids.ids)]
 				})
+
+	#defining method for charge field
+	# @api.depends("")
 
 
 

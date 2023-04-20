@@ -5,3 +5,4 @@ library_management.access_issue_books,access_issue_books,library_management.mode
 library_management.access_register_books,access_register_books,library_management.model_register_books,base.group_user,1,1,1,1
 library_management.access_register_date,access_register_date,library_management.model_register_date,base.group_user,1,1,1,1
 library_management.access_book_type,access_book_type,library_management.model_book_type,base.group_user,1,1,1,1
+library_management.access_return_date,access_return_date,library_management.model_return_date,base.group_user,1,1,1,1

@@ -10,6 +10,7 @@
                     <field name="user_id"/>
                     <field name="incoming_date"/>
                     <field name="outgoing_date"/>
+                    <field name="charges"/>
                 </tree>
         </field>
     </record>

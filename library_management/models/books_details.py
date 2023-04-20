@@ -3,7 +3,7 @@
 from odoo import fields, models,api,_
 from datetime import datetime,date
 
-class BookAuthor(models.Model):
+class BookDetails(models.Model):
 	_name="book.details"
 	_description="Books details"
 	_rec_name="book_name"
@@ -16,6 +16,8 @@ class BookAuthor(models.Model):
 	quantity = fields.Integer(string="Quantity")
 	stock_quantity = fields.Integer(string="Stock Quantity",compute="_compute_stock_quantity")
 	book_types_ids = fields.Many2many("book.type", "book_type_id", string="Book Types")
+	charges = fields.Integer(string="Return charges")
+	
 
 	# defining sequence for book id
 	@api.model
@@ -46,9 +48,12 @@ class BookAuthor(models.Model):
 	def action_book_quantity(self):
 		pass
 
-
+	#defining method for smart button name quantity
 	def _compute_stock_quantity(self):
 		t = self.env["register.date"].search_count([('books_id_name','=',self.id), ('incoming_date','=',False)])
 		self.stock_quantity = self.quantity - t
 		print("=======================.",self.stock_quantity)
+
+	#defining method for charge field
+	# @api.depends("")
 

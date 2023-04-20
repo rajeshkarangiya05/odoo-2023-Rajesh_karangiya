@@ -12,6 +12,7 @@
                     <field name="pages"/>
                     <field name="quantity"/>
                     <field name ="book_types_ids" widget="many2many_tags"/>
+                    <field name="charges"/>
                 </tree>
         </field>
     </record>
@@ -37,6 +38,7 @@
                         <field name="pages"/>
                         <field name="quantity"/>
                         <field name ="book_types_ids" widget="many2many_tags"/>
+                        <field name="charges"/>
                     </group>
                 </sheet>
             </form>

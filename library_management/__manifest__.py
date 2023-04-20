@@ -17,6 +17,7 @@
 		"views/register_books_view.xml",
 		"views/register_date_view.xml",
 		"views/book_type_view.xml",
+		"wizards/expected_return_date_view.xml",
 
 
 
