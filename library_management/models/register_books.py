@@ -25,6 +25,7 @@ class RegisterBooks(models.Model):
 				"book_data_ids":[(6,0,record.book_types_ids.ids)]
 				})
 
+
 	
 
 

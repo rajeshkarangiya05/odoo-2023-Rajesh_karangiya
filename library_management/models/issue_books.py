@@ -15,6 +15,7 @@ class IssueBooks(models.Model):
 	empty = fields.Char(string="Empty")
 	issue_date = fields.Date(string="Issue Date")
 	books_lines_ids = fields.One2many("register.books","empty_id",string="Books details")
+	relation_ids = fields.One2many("register.date","built_relation_id",string="Relatoinal")
 	state = fields.Selection(selection=[('draft', 'Draft'),
 		('issued', 'Issued'),('return','Return')],
 		 string='Status', required=True, readonly=True, copy=False, default='draft')
@@ -22,7 +23,7 @@ class IssueBooks(models.Model):
 	quantity = fields.Integer(string="Quantity")
 	user_send_email = fields.Char(string="Send Mail To")
 	check_box = fields.Boolean("Manual Entry")
-	payable = fields.Integer("Payable")
+	payable = fields.Integer("Payable",compute="compute_payable_charge")
 	
 			
 	# defining method for automatic filling the fields 
@@ -43,7 +44,6 @@ class IssueBooks(models.Model):
 
 	# defining method for issue button
 	def issue_view(self):
-		print(" ******************self.browse ",self.browse())
 		for rec in self:
 			rec.write({'state': "issued"})
 			self.issue_date = datetime.now().date()
@@ -56,9 +56,12 @@ class IssueBooks(models.Model):
 					'user_id':self.name_id.id,
 					'books_id_name':data.book_name_id}]
 					issueData = self.env["register.date"].create(register_id)
+
 		template = self.env.ref('library_management.user_mail_id').id	
 		template_id = self.env['mail.template'].browse(template)
 		template_id.send_mail(self.id, force_send=True)
+
+
 		return {
 			"type":"ir.actions.act_window",
 			"name":"_(Return Date)",
@@ -66,7 +69,17 @@ class IssueBooks(models.Model):
 			"view_mode":"form",
 			"target":"new",
 		}
-		
+
+	#defining method for getting total charges per user
+	def compute_payable_charge(self):
+		for data in self:
+			data.payable=0
+			if data.issue_date:
+				payable_data = self.env["register.date"].search([('issue_book_id','=',data.id)])
+				print("*******payable_data",payable_data)
+				for element in payable_data:
+					data.payable += element.total_charge
+
 
 	# defining method for return button
 	def return_view(self):
@@ -81,15 +94,11 @@ class IssueBooks(models.Model):
 	def return_users(self):
 		fields = ['name', 'email']
 		partner_id = self.env['book.details'].search_count([])
-		
-		print('\n\npartner_id',type(partner_id))	
 
 
 
 	# defining unlink method for delecting records from registor book model
 	def unlink(self):
-		print("calling unlink method::::::::::",self)
-		# print(self.books_lines_ids.id)
 		for lines in self.books_lines_ids:
 			record = self.env["register.books"].search([('id','=',lines.id)])
 			record.unlink()
@@ -116,7 +125,7 @@ class IssueBooks(models.Model):
 			for lines in self.books_lines_ids:
 				record_register_book = self.env["register.books"].search([('id','=',lines.id)])
 				if record_book.id == lines.book_name_id.id and lines.id == record_register_book.issue_bookline_ids:
-					print("\n *same record")
+					
 					update={
 						"issued_quantity":lines.issued_quantity+self.quantity
 					}
@@ -129,9 +138,11 @@ class IssueBooks(models.Model):
 	# defining method for button "DeleteDummys" deleting records in register books model
 	def Delete_given_data(self):
 		pass
+
+	def return_book(self):
+		print("gdas67uwrfde67")
+		pass
+	
+
 		
-
-
-
-
-
+	

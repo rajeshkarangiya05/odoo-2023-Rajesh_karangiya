@@ -44,18 +44,16 @@ class BookDetails(models.Model):
 			args = ['|','|',('book_id',operator,name),('book_name',operator,name),("name_id",operator,name)] + args
 		return self._search(args, limit=limit, access_rights_uid=name_get_uid)
 
-	#define function for smart button of "Quantity"
+	# define function for smart button of "Quantity"
 	def action_book_quantity(self):
-		x = 10
-		print("/////////////////action_book_quantity",x)
-		return x
+		pass
+		
 
 	#defining method for smart button name quantity
 	def _compute_stock_quantity(self):
 		t = self.env["register.date"].search_count([('books_id_name','=',self.id), ('incoming_date','=',False)])
 		self.stock_quantity = self.quantity - t
-		print("t",t)
-		print("=======================.",self.stock_quantity)
+		
 
 	
 

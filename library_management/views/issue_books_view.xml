@@ -43,7 +43,7 @@
                             <field name="payable" attrs="{'invisible':[('state','=','draft')],'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
                         </group>
                     </group>
-                    <notebook>
+                    <notebook attrs="{'invisible':['|',('state','=','issued'),('state','=','return')]}">
                         <page string="Book details" >
                             <field name="books_lines_ids" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}">
                                 <tree editable="bottom">
@@ -51,6 +51,22 @@
                                     <field name="issued_quantity"/>
                                     <field name="book_data_ids" widget="many2many_tags"/>
                                     <field name="return_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <notebook attrs="{'invisible':[('state','=','draft')]}">
+                        <page string="Registered Data" >
+                            <field name="relation_ids" context="{'default_relation_ids': active_id}">
+                                <tree editable="bottom">
+                                    <field name="issue_book_id"/>
+                                    <field name="bookid"/>
+                                    <field name="books_id_name"/>
+                                    <field name="user_id"/>
+                                    <field name="incoming_date"/>
+                                    <field name="outgoing_date"/>
+                                    <field name="charges"/>
+                                    <field name="total_charge"/>
                                 </tree>
                             </field>
                         </page>

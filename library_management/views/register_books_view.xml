@@ -10,8 +10,6 @@
                     <field name="issued_quantity"/>
                     <field name="book_data_ids" widget="many2many_tags"/>
                     <field name="return_date"/>
-
-
                 </tree>
         </field>
     </record>
@@ -26,8 +24,7 @@
                         <field name = "issue_bookline_ids"/>
                         <field name="issued_quantity"/>
                         <field name="book_data_ids" widget="many2many_tags"/>
-                        <field name="return_date"/>
-
+                        <field name="return_date"/>                        
                     </group>
                 </sheet>
             </form>
