@@ -12,7 +12,8 @@
                     <field name="incoming_date"/>
                     <field name="outgoing_date"/>
                     <field name="charges"/>
-                    <field name="total_charge"/>
+                    <button name="return_book" string="Return"  type="object"/>
+                    <!-- <field name="total_charge"/> -->
                 </tree>
         </field>
     </record>
@@ -30,7 +31,7 @@
                         <field name="incoming_date"/>
                         <field name="outgoing_date"/>
                         <field name="charges"/>
-                        <field name="total_charge"/>
+                        <!-- <field name="total_charge"/> -->
                     </group>                    
                 </sheet>
             </form>

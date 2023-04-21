@@ -8,7 +8,7 @@ class IssueBooks(models.Model):
 	_description="Issue Book Details"
 	_rec_name = "name_id"
 
-	name_id = fields.Many2one("res.partner",string="Name")
+	name_id = fields.Many2one("res.partner",string="Name", required=True)
 	email = fields.Char(string="Email")
 	phone = fields.Char(string="Phone No.")
 	address = fields.Text(string="Address",)
@@ -68,6 +68,7 @@ class IssueBooks(models.Model):
 			"res_model":"return.date",
 			"view_mode":"form",
 			"target":"new",
+
 		}
 
 	#defining method for getting total charges per user
@@ -83,11 +84,20 @@ class IssueBooks(models.Model):
 
 	# defining method for return button
 	def return_view(self):
-		for rec in self:
-			rec.write({'state': "return"})
-			for data in self.books_lines_ids:
-				returnData = self.env["register.date"].search([('bookid','=',data.id)])
-				returnData.incoming_date = datetime.now().date()
+		for data in self:
+			record = self.env["register.date"].search([('issue_book_id','=',data.id)])
+			for rec in record:
+				return {
+					"type":"ir.actions.act_window",
+					"name":"Return Book",
+					"res_model":"return.book",
+					"view_mode":"form",
+					"target":"new",					
+					"context":{
+						"default_books_return_ids": record.ids
+					},
+
+				}
 
 
 	# defining method for button "user data" to get details of user from res partner model

@@ -20,6 +20,7 @@
 		"views/register_date_view.xml",
 		"views/book_type_view.xml",
 		"wizards/expected_return_date_view.xml",
+		"wizards/return_book_view.xml",
 		"report/issue_book_report.xml",
 		"report/issue_book_report_template.xml",
 

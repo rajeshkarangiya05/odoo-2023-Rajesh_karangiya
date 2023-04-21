@@ -9,11 +9,11 @@ class RegisterDate(models.Model):
 
 	user_id = fields.Char(string="User ID")
 	bookid = fields.Char(string="Book Line ID")
-	built_relation_id = fields.Many2one("issue.books", string="Empty")
+	built_relation_id = fields.Many2one("issue.books", string="Relational field")
 	incoming_date = fields.Date(string="Incoming Date", readonly=True)
 	outgoing_date = fields.Date(string="Outgoing Date", readonly=True)
 	books_id_name = fields.Integer(string="Book Name ID")
-	charges = fields.Integer(string="Charges", compute="_compute_charges")
+	charges = fields.Integer(string="To pay", compute="_compute_charges")
 	int_diff = fields.Integer(string="Expected Return Days")
 	issue_book_id = fields.Integer(string="Issue Book Id")
 	total_charge = fields.Integer(string="Total Charges")
@@ -43,9 +43,9 @@ class RegisterDate(models.Model):
 			issue_data =self.env["issue.books"].read_group([('id','=',element.issue_book_id)],fields=['id'],groupby=['name_id'])
 			print("issue_data",issue_data)
 
-	@api.onchange("charges")
-	def charges_change(self):
-		print("chabged>>>>>>>>>>>>>>>>>>>>>>>>>")
+	
+	def return_book(self):
+		print("...Helllllllllllllllllllooooooooo...")
 
 	
 
