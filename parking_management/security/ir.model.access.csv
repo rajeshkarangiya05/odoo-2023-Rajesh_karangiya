@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+parking_management.access_parking_user,access_parking_user,parking_management.model_parking_user,base.group_user,1,1,1,1
+parking_management.access_parking_data,access_parking_data,parking_management.model_parking_data,base.group_user,1,1,1,1
+parking_management.access_payment_type,access_payment_type,parking_management.model_payment_type,base.group_user,1,1,1,1
+parking_management.access_vehicel_type,access_vehicel_type,parking_management.model_vehicel_type,base.group_user,1,1,1,1
+parking_management.access_slot_data,access_slot_data,parking_management.model_slot_data,base.group_user,1,1,1,1
+parking_management.access_base_name,access_base_name,parking_management.model_base_name,base.group_user,1,1,1,1
+parking_management.access_choose_vehicle,access_choose_vehicle,parking_management.model_choose_vehicle,base.group_user,1,1,1,1

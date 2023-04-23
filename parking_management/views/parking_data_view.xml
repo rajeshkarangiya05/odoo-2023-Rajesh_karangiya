@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="parking_data_view_tree" model="ir.ui.view">
+		<field name="name">parking.data.view.tree</field>
+		<field name="model">parking.data</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field  name="entry"/>
+			</tree>
+		</field>
+	</record>
+	<record id="parking_data_view_form" model="ir.ui.view">
+		<field name="name">parking.data.view.form</field>
+		<field name="model">parking.data</field>
+		<field name="arch" type="xml">
+			<form string="User Data">
+				<sheet>
+					<group>
+						<field  name="entry"/>
+					</group>					
+				</sheet>
+			</form>
+		</field>
+	</record>
+	
+	<record id="action_praking_data_view" model="ir.actions.act_window">
+		<field name="name">Parking Data</field>
+		<field name="res_model">parking.data</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+    <menuitem id="sub_menu_parking_data"
+            name="Parking Data"
+            parent="menu_parking_user"
+            action="action_praking_data_view"
+            sequence="3"/>
+</odoo>

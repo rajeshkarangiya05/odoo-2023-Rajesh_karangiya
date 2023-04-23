@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="choose_vehicle_view_tree" model="ir.ui.view">
+        <field name="name">choose.vehicle.tree</field>
+        <field name="model">choose.vehicle</field>
+        <field name="arch" type="xml">
+                <tree>
+                    <field name="choose_vehicle"/>
+                    <field name="Alot_slot"/>
+                </tree>
+        </field>
+    </record>
+    <record id="choose_vehicle_view_form" model="ir.ui.view">
+        <field name="name">choose.vehicle.form</field>
+        <field name="model">choose.vehicle</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="choose_vehicle"/>
+                    <field name="Alot_slot"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button special="cancel" data-hotkey="z" string="Cancel" class ="btn-secondary"/>
+                    <button name = "action_alot" data-hotkey="o" string="ALOT" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record> 
+
+    <record id="action_choose_vehicle__view" model="ir.actions.act_window">
+        <field name="name">Choose Vehicle</field>
+        <field name="res_model">choose.vehicle</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

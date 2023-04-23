@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="base_name_view_tree" model="ir.ui.view">
+		<field name="name">base.name.view.tree</field>
+		<field name="model">base.name</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field  name="name"/>
+				<field  name="choose_sections"/>
+				<field  name="choose_partition"/>
+				<field  name="choose_partition"/>
+				<field name="confirmation"/>
+
+			</tree>
+		</field>
+	</record>
+	<record id="base_name_view_form" model="ir.ui.view">
+		<field name="name">base.name.view.form</field>
+		<field name="model">base.name</field>
+		<field name="arch" type="xml">
+			<form string="User Data">
+				<header>
+					<button name="action_step_1" class = "oe_highlight" states='step_1' string="NEXT" type="object"/>
+					<field name='state' widget="statusbar" statusbar_visible='step_1,step_2'/>
+				</header>
+				<sheet>
+					<group>
+						<field  name="name" attrs="{'readonly':[('state','=','step_2')]}"/>
+						<field  name="choose_sections" attrs="{'readonly':[('state','=','step_2')]}"/>
+						<field  name="choose_partition" attrs="{'invisible':[('choose_sections','=',0)],'readonly':[('state','=','step_2')]}"/>
+						<field name="confirmation" attrs="{'invisible':[('choose_partition','=',0)],'readonly':[('state','=','step_2')]}"/>
+					</group>
+					<notebook>
+						<page string="Slot" attrs="{'invisible':[('state','=','step_1')]}">
+							<field name="slot_data_ids" attrs="{'invisible':[('state','=','step_1')]}">
+								<tree editable="bottom">
+									<field name="base_name_id"/>
+									<field name="section_name"/>
+									<field name="section_partition"/>
+									<field name="vehicel_type_id"/>
+									<field name="strength"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>					
+				</sheet>
+			</form>
+		</field>
+	</record>
+	
+	<record id="action_base_name_view" model="ir.actions.act_window">
+		<field name="name">Base Name</field>
+		<field name="res_model">base.name</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+    <menuitem id="sub_menu_base_name"
+            name="Base Name"
+            parent="sub_menu_parking_data"
+            action="action_base_name_view"
+            sequence="3"/>
+</odoo>

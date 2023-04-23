@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="parking_user_view_tree" model="ir.ui.view">
+		<field name="name">parking.user.view.tree</field>
+		<field name="model">parking.user</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="token"/>
+				<field  name="name"/>
+				<field  name="vehicle_number"/>
+				<field  name="Vehicle_type_id"/>
+				<field  name="phone"/>
+			</tree>
+		</field>
+	</record>
+	<record id="parking_user_view_form" model="ir.ui.view">
+		<field name="name">parking.user.view.form</field>
+		<field name="model">parking.user</field>
+		<field name="arch" type="xml">
+			<form string="User Data">
+				<header>
+					<button name="action_Generate_token" class = "oe_highlight" states='draft' string="Generate Token" type="object"/>
+					<button name="action_payment" class = "oe_highlight" states='token' string="Payment" type="object"/>
+					<field name='state' widget="statusbar" statusbar_visible='draft,token,payment'/>
+				</header>		
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+                        <button name="action_two_wheel_slots"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o">
+                                <field string ="Available Slots" name = "two_wheel_slot" widget="statinfo"/>
+                        </button>
+                    </div>
+					<group>
+						<field  name="token" attrs="{'invisible':[('state','=','draft')],'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
+						<field name="payment" attrs="{'invisible':['|',('state','=','draft'),('state','=','token')]}"/>
+						<field  name="name" attrs="{'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
+						<field  name="vehicle_number" attrs="{'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
+						<field  name="Vehicle_type_id" attrs="{'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
+						<field  name="phone" attrs="{'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
+						<field name="slots" attrs="{'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
+					</group>					
+				</sheet>
+			</form>
+		</field>
+	</record>
+	
+	<record id="action_praking_user_view" model="ir.actions.act_window">
+		<field name="name">User Details</field>
+		<field name="res_model">parking.user</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="menu_parking_user"
+            name="Parking"
+            sequence="1"/>
+
+    <menuitem id="sub_menu_parking_user"
+            name="Booking"
+            parent="menu_parking_user"
+            sequence="2"/>
+
+    <menuitem id="menu_parking_user_data"
+            action="action_praking_user_view"
+            name="User Data"
+            parent="sub_menu_parking_user"
+            sequence="3"/>
+</odoo>
