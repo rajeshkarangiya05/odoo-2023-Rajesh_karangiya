@@ -56,6 +56,8 @@ class IssueBooks(models.Model):
 					'user_id':self.name_id.id,
 					'books_id_name':data.book_name_id}]
 					issueData = self.env["register.date"].create(register_id)
+					append = self.env["register.books"].search([('id','=',data.id)])
+					append.issue_bookline_ids=self.id
 
 		template = self.env.ref('library_management.user_mail_id').id	
 		template_id = self.env['mail.template'].browse(template)
@@ -92,10 +94,7 @@ class IssueBooks(models.Model):
 					"name":"Return Book",
 					"res_model":"return.book",
 					"view_mode":"form",
-					"target":"new",					
-					"context":{
-						"default_books_return_ids": record.ids
-					},
+					"target":"new",
 
 				}
 

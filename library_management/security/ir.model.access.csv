@@ -7,3 +7,4 @@ library_management.access_register_date,access_register_date,library_management.
 library_management.access_book_type,access_book_type,library_management.model_book_type,base.group_user,1,1,1,1
 library_management.access_return_date,access_return_date,library_management.model_return_date,base.group_user,1,1,1,1
 library_management.access_return_book,access_return_book,library_management.model_return_book,base.group_user,1,1,1,1
+library_management.access_register_data_lines,access_register_data_lines,library_management.model_register_data_lines,base.group_user,1,1,1,1

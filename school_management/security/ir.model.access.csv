@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+school_management.access_student_information,access_student_information,school_management.model_student_information,base.group_user,1,1,1,1
+school_management.access_student_class,access_student_class,school_management.model_student_standard,base.group_user,1,1,1,1
+school_management.access_student_subject,access_student_subject,school_management.model_student_subject,base.group_user,1,1,1,1
+school_management.access_professor_record,access_professor_record,school_management.model_professor_record,base.group_user,1,1,1,1
+school_management.access_leave_school,access_leave_school,school_management.model_leave_school,base.group_user,1,1,1,1

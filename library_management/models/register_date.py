@@ -17,6 +17,8 @@ class RegisterDate(models.Model):
 	int_diff = fields.Integer(string="Expected Return Days")
 	issue_book_id = fields.Integer(string="Issue Book Id")
 	total_charge = fields.Integer(string="Total Charges")
+	return_quantity=fields.Integer(string="Return")
+	# empty_id = fields.Many2one('return.book',string="Empty id")
 
 	# defining method for charge field
 	@api.depends("incoming_date")

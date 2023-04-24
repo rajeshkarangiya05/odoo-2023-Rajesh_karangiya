@@ -17,10 +17,22 @@
                 <sheet>
                     <group>
                         <field name="reture_book"/>
-                        <field name="books_return_ids" attrs="{'invisible':[('reture_book','=',False)]}"/>
+                        <!-- <field name="books_return_ids" attrs="{'invisible':[('reture_book','=',False)]}"/> -->
 
                     </group>
                 </sheet>
+                <notebook>
+                    <page>
+                        <field name='books_return_ids'>
+                            <tree editable ="bottom">
+                                <field name="book_id"/>
+                                <field name="quantity"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+
+
                 <footer>
                     <button special="cancel" data-hotkey="z" string="Cancel" class ="btn-secondary"/>
                     <button name = "action_confirm" data-hotkey="o" string="Return All" type="object" class="btn-primary"/>

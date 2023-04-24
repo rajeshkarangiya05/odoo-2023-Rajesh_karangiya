@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="professor_record_tree_view">
+        <field name="name">professor.record.tree.view</field>
+        <field name="model">professor.record</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="subject_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="professor_record_form_view">
+        <field name="name">professor.record.form.view</field>
+        <field name="model">professor.record</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="subject_id"/>
+                        <field name="student_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for student class tree and form view-->
+    <record id="action_professor_record" model="ir.actions.act_window">
+        <field name="name">Professor</field>
+        <field name="res_model">professor.record</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="school_professor" name="Professor" parent="school_management_deatils" sequence="7" action="action_professor_record"/>
+
+
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_student">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    
+                    <span>Student name: <span t-field="doc.name"/></span><br/>
+                    <span>Phone Number  : <span t-field="doc.phone"/></span><br/>
+                    <span>Email: <t t-esc="doc.stu_email"/></span><br/>
+                    <span>Roll No. : <span t-field="doc.roll_no"/></span><br/>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
