@@ -46,12 +46,15 @@ class BookDetails(models.Model):
 
 	#define function for smart button of "Quantity"
 	def action_book_quantity(self):
-		pass
+		x = 10
+		print("/////////////////action_book_quantity",x)
+		return x
 
 	#defining method for smart button name quantity
 	def _compute_stock_quantity(self):
 		t = self.env["register.date"].search_count([('books_id_name','=',self.id), ('incoming_date','=',False)])
 		self.stock_quantity = self.quantity - t
+		print("t",t)
 		print("=======================.",self.stock_quantity)
 
 	

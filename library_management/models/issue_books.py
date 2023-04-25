@@ -80,8 +80,11 @@ class IssueBooks(models.Model):
 	# defining method for button "user data" to get details of user from res partner model
 	def return_users(self):
 		fields = ['name', 'email']
-		partner_id = self.env['book.author'].search_read([('id','>',0)])
-		print("read =============>",partner_id)
+		partner_id = self.env['book.details'].search_count([])
+		
+		print('\n\npartner_id',type(partner_id))	
+
+
 
 	# defining unlink method for delecting records from registor book model
 	def unlink(self):

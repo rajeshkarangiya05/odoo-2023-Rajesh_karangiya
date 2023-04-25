@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+	<template id="report_issue_book">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="web.external_layout">
+					
+					<h3 style="color:red;"><span><span t-field="doc.name_id"/></span></h3>
+
+					<table class="table table-sm"  style="background:#ADD8E6;">
+							<tr>
+								<th>Details</th>
+								<th>Information</th>
+								<th>Details</th>
+								<th>Information</th>
+							</tr>
+							<tr>
+								<td><span>Address </span></td>
+								<td><span><span t-field="doc.address"/></span></td>
+								<td><span>Phone No. </span></td>
+								<td><span><span t-field="doc.phone"/></span></td>
+							</tr>
+							<tr>
+								<td><span>Email </span></td>
+								<td><span><span t-field="doc.email"/></span></td>
+								<td><span>Quantity </span></td>
+								<td><span><span t-field="doc.quantity"/></span></td>
+							</tr>
+							<tr>
+								
+								<td><span>Issue Date </span></td>
+								<td><span><span t-field="doc.issue_date"/></span></td>		
+							</tr>
+					</table>
+
+					<h5>Issued book</h5>
+							<table class="table table-sm o_main_table"  style="background:#D3D3D3;">
+								
+									<tr>
+										<th>Book Name</th>
+										<th>Quantity</th>
+										<th>Book Types</th>
+										<th>Expected Return date</th>
+									</tr>
+									<t t-foreach="doc.books_lines_ids" t-as="lines">
+									<tr>							
+										<td><span><span t-field="lines.book_name_id.book_name"/></span></td>
+										<td><span><span t-field="lines.issued_quantity"/></span></td>
+										<td><span><span t-field="lines.book_data_ids"/></span></td>
+										<td><span ><span t-field="lines.return_date"/></span></td>
+									</tr>
+									</t>
+							</table>
+						
+						
+				</t>
+			</t>
+		</t>
+	</template>
+	</odoo>

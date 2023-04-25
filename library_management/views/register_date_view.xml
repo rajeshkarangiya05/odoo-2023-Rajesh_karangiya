@@ -12,7 +12,7 @@
                     <field name="incoming_date"/>
                     <field name="outgoing_date"/>
                     <field name="charges"/>
-                    <field name="int_diff"/>
+                    <field name="total_charge"/>
                 </tree>
         </field>
     </record>
@@ -29,6 +29,8 @@
                         <field name="user_id"/>
                         <field name="incoming_date"/>
                         <field name="outgoing_date"/>
+                        <field name="charges"/>
+                        <field name="total_charge"/>
                     </group>                    
                 </sheet>
             </form>
@@ -38,7 +40,7 @@
     <record id="action_register_date_view" model="ir.actions.act_window">
         <field name="name">Register Date</field>
         <field name="res_model">register.date</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
     <menuitem id="menu_register_date"

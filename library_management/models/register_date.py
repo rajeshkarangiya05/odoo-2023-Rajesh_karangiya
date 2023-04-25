@@ -15,6 +15,7 @@ class RegisterDate(models.Model):
 	charges = fields.Integer(string="Charges", compute="_compute_charges")
 	int_diff = fields.Integer(string="Expected Return Days")
 	issue_book_id = fields.Integer(string="Issue Book Id")
+	total_charge = fields.Integer(string="Total Charges")
 
 	# defining method for charge field
 	@api.depends("incoming_date")
@@ -33,18 +34,19 @@ class RegisterDate(models.Model):
 				current_day = datetime.now().date()
 				difference_day = (current_day-in_date).days					
 				multiple =  difference_day//element.int_diff
-				print("multiple",multiple)
 				element.charges=get_defaultcharge.charges+(multiple*get_defaultcharge.charges)
+
+				element.total_charge = element.charges
 
 			issue_data =self.env["issue.books"].read_group([('id','=',element.issue_book_id)],fields=['id'],groupby=['name_id'])
 			print("issue_data",issue_data)
-		# if issue_data:
-		# 	count= count+element.charges
-		# 	y = count
-		# 	val = {
-		# 		"payable":count
-		# 	}
-		# 	write_payable = issue_data.write(val)
+
+	@api.onchange("total_charge")
+	def _onchange_total_charge(self):
+		print("***********************onchange")
+		# for rec in self.issue_book_id:
+			# print(rec)
+
 
 
 

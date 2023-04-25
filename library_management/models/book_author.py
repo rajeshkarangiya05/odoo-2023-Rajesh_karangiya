@@ -10,3 +10,8 @@ class BookAuthor(models.Model):
 	email = fields.Char(string="Email Id")
 	contact = fields.Char(string="Contact No.")
 	address = fields.Text(string="Address")
+
+	def fun():
+		print("x = 10")
+
+	fun()
