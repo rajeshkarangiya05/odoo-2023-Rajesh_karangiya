@@ -10,7 +10,7 @@ class RegisterDate(models.Model):
 	user_id = fields.Char(string="User ID")
 	bookid = fields.Char(string="Book Line ID")
 	built_relation_id = fields.Many2one("issue.books", string="Relational field")
-	incoming_date = fields.Date(string="Incoming Date", readonly=True)
+	incoming_date = fields.Date(string="Incoming Date")
 	outgoing_date = fields.Date(string="Outgoing Date", readonly=True)
 	books_id_name = fields.Integer(string="Book Name ID")
 	charges = fields.Integer(string="To pay", compute="_compute_charges")

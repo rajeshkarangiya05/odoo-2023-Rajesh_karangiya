@@ -27,6 +27,7 @@
                             <tree editable ="bottom">
                                 <field name="book_id"/>
                                 <field name="quantity"/>
+                                <field name="return_quantity"/>
                             </tree>
                         </field>
                     </page>

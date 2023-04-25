@@ -56,8 +56,8 @@ class IssueBooks(models.Model):
 					'user_id':self.name_id.id,
 					'books_id_name':data.book_name_id}]
 					issueData = self.env["register.date"].create(register_id)
-					append = self.env["register.books"].search([('id','=',data.id)])
-					append.issue_bookline_ids=self.id
+					register_book_data = self.env["register.books"].search([('id','=',data.id)])
+					register_book_data.issue_bookline_ids=self.id
 
 		template = self.env.ref('library_management.user_mail_id').id	
 		template_id = self.env['mail.template'].browse(template)
@@ -86,17 +86,20 @@ class IssueBooks(models.Model):
 
 	# defining method for return button
 	def return_view(self):
-		for data in self:
-			record = self.env["register.date"].search([('issue_book_id','=',data.id)])
-			for rec in record:
-				return {
-					"type":"ir.actions.act_window",
-					"name":"Return Book",
-					"res_model":"return.book",
-					"view_mode":"form",
-					"target":"new",
+		new_list=[]
+		for rec in self.books_lines_ids:
+			new_list.append((0,0,{'book_id':rec.book_name_id.id,'quantity':rec.issued_quantity,'return_quantity':rec.issued_quantity}))
+		return {
+			"type":"ir.actions.act_window",
+			"name":"Return Book",
+			"res_model":"return.book",
+			"view_mode":"form",
+			"target":"new",
+			"context": {
+				"default_books_return_ids": new_list
+			}
 
-				}
+		}
 
 
 	# defining method for button "user data" to get details of user from res partner model
@@ -141,6 +144,8 @@ class IssueBooks(models.Model):
 					self.write({
 						"books_lines_ids":[(1,lines.id,update)]
 						})
+		self.quantity=None
+		self.book_name =None
 				
 
 
