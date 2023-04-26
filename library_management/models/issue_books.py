@@ -2,6 +2,7 @@
 
 from odoo import fields, models,api,_
 from datetime import datetime
+from odoo.exceptions import ValidationError
 
 class IssueBooks(models.Model):
 	_name="issue.books"
@@ -49,6 +50,8 @@ class IssueBooks(models.Model):
 			self.issue_date = datetime.now().date()
 			for data in self.books_lines_ids:
 				quantity = data.issued_quantity
+				register_book_data = self.env["register.books"].search([('id','=',data.id)])
+				register_book_data.issue_bookline_ids=self.id
 				for _ in range(quantity):					
 					register_id = [{"bookid":data.id,
 					'issue_book_id':self.id,
@@ -56,8 +59,8 @@ class IssueBooks(models.Model):
 					'user_id':self.name_id.id,
 					'books_id_name':data.book_name_id}]
 					issueData = self.env["register.date"].create(register_id)
-					register_book_data = self.env["register.books"].search([('id','=',data.id)])
-					register_book_data.issue_bookline_ids=self.id
+
+					
 
 		template = self.env.ref('library_management.user_mail_id').id	
 		template_id = self.env['mail.template'].browse(template)
@@ -79,7 +82,6 @@ class IssueBooks(models.Model):
 			data.payable=0
 			if data.issue_date:
 				payable_data = self.env["register.date"].search([('issue_book_id','=',data.id)])
-				print("*******payable_data",payable_data)
 				for element in payable_data:
 					data.payable += element.total_charge
 
@@ -154,8 +156,16 @@ class IssueBooks(models.Model):
 		pass
 
 	def return_book(self):
-		print("gdas67uwrfde67")
 		pass
+
+	#method for defining constrain on book lines 
+	@api.constrains('books_lines_ids')
+	def _check_books_lines_ids(self):
+		for rec in self.books_lines_ids:
+			count = self.env["register.books"].search_count([('empty_id','=',self.id),
+				('book_name_id','=',rec.book_name_id.id)])
+			if count > 1:
+				raise ValidationError('Same book lines are added')
 	
 
 		

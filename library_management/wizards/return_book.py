@@ -1,6 +1,6 @@
 from odoo import fields,models,api,_
 from datetime import datetime
-
+from odoo.exceptions import ValidationError
 class ReturnBook(models.TransientModel):
 	_name="return.book"
 	_description = "Return Book wizard"
@@ -15,6 +15,21 @@ class ReturnBook(models.TransientModel):
 			vals = {
 				"state":"return"
 			}
+
+			for data in rec.books_return_ids:
+				if data.return_quantity > data.quantity:
+					raise ValidationError('Return Quantity is more than Book Quantity')
+				else:
+					loop_variable = data.quantity - data.return_quantity
+					print('loop_variable',loop_variable)
+					register_incoming_date = self.env['register.date'].search([('issue_book_id','=',self._context['active_id']),
+						('incoming_date','=',False),
+						('books_id_name','=',data.book_id.id)])
+					print("register_incoming_date",register_incoming_date)
+					for index in range(loop_variable):
+						register_incoming_date[index].incoming_date = datetime.now().date()
+
+
 			
 			returnData = self.env["register.date"].search([('issue_book_id','=',self._context["active_id"])])
 			count = self.env["register.date"].search_count([('issue_book_id','=',records.id)])
@@ -28,9 +43,6 @@ class ReturnBook(models.TransientModel):
 					new_list.append(False)
 			if all(new_list):
 				records.write(vals)
-	@api.onchange("books_return_ids"):
-	def _onchange_books_return_ids(self):
-		for data in self.books_lines_ids:
 			
 
 
@@ -60,8 +72,8 @@ class RegisterDateLines(models.TransientModel):
 	_description="Register Date Data"
 
 	relation_id = fields.Many2one("return.book")
-	book_id =  fields.Many2one("book.details",readonly=True)
-	quantity =  fields.Integer("Book Quantity",readonly=True)
+	book_id =  fields.Many2one("book.details")
+	quantity =  fields.Integer("Book Quantity")
 	return_quantity = fields.Integer("Return Quantity")
 
 	# def default_get(self,fields):

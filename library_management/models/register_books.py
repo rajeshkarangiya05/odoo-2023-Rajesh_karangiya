@@ -20,7 +20,7 @@ class RegisterBooks(models.Model):
 		if not self.book_name_id:
 			return
 		else:
-			record = self.env["book.details"].search([('id','=',self.book_name_id.id)])
+			record = self.env["book.details"].search([('book_name','=',self.book_name_id.book_name)])
 			self.update({
 				"book_data_ids":[(6,0,record.book_types_ids.ids)]
 				})
