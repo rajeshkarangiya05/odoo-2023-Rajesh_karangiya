@@ -8,3 +8,4 @@ library_management.access_book_type,access_book_type,library_management.model_bo
 library_management.access_return_date,access_return_date,library_management.model_return_date,base.group_user,1,1,1,1
 library_management.access_return_book,access_return_book,library_management.model_return_book,base.group_user,1,1,1,1
 library_management.access_register_data_lines,access_register_data_lines,library_management.model_register_data_lines,base.group_user,1,1,1,1
+library_management.access_pass_context,access_pass_context,library_management.model_pass_context,base.group_user,1,1,1,1

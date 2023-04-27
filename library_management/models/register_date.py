@@ -35,15 +35,16 @@ class RegisterDate(models.Model):
 						
 				in_date = element.outgoing_date
 				current_day = datetime.now().date()
-				difference_day = (current_day-in_date).days
-				if element.int_diff:				
-					multiple =  difference_day//element.int_diff
-					element.charges=get_defaultcharge.charges+(multiple*get_defaultcharge.charges)
+				if in_date:
+					difference_day = (current_day-in_date).days
+					if element.int_diff:				
+						multiple =  difference_day//element.int_diff
+						element.charges=get_defaultcharge.charges+(multiple*get_defaultcharge.charges)
 
-					element.total_charge = element.charges
+						element.total_charge = element.charges
 
 			issue_data =self.env["issue.books"].read_group([('id','=',element.issue_book_id)],fields=['id'],groupby=['name_id'])
-			print("issue_data",issue_data)
+			
 
 	
 	def return_book(self):

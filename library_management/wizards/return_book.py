@@ -20,7 +20,7 @@ class ReturnBook(models.TransientModel):
 				if data.return_quantity > data.quantity:
 					raise ValidationError('Return Quantity is more than Book Quantity')
 				else:
-					loop_variable = data.quantity - data.return_quantity
+					loop_variable =  data.return_quantity
 					print('loop_variable',loop_variable)
 					register_incoming_date = self.env['register.date'].search([('issue_book_id','=',self._context['active_id']),
 						('incoming_date','=',False),
@@ -28,6 +28,7 @@ class ReturnBook(models.TransientModel):
 					print("register_incoming_date",register_incoming_date)
 					for index in range(loop_variable):
 						register_incoming_date[index].incoming_date = datetime.now().date()
+					loop_variable = 0
 
 
 			
@@ -43,6 +44,7 @@ class ReturnBook(models.TransientModel):
 					new_list.append(False)
 			if all(new_list):
 				records.write(vals)
+
 			
 
 
@@ -73,8 +75,10 @@ class RegisterDateLines(models.TransientModel):
 
 	relation_id = fields.Many2one("return.book")
 	book_id =  fields.Many2one("book.details")
-	quantity =  fields.Integer("Book Quantity")
+	quantity =  fields.Integer("Book issued Quantity")
 	return_quantity = fields.Integer("Return Quantity")
+	remaining_quantity = fields.Integer("Remaining Quantity")
+
 
 	# def default_get(self,fields):
 	# 	res = super(RegisterDateLines, self).default_get(fields)
@@ -85,6 +89,8 @@ class RegisterDateLines(models.TransientModel):
 	# 			print("element quantity -----",element.issued_quantity)
 	# 			res['return_quantity']=element.issued_quantity
 	# 	return res
+
+ 
 
 
 

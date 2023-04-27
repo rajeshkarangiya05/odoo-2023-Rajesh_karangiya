@@ -1,51 +1,48 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="return_book_view_tree" model="ir.ui.view">
-        <field name="name">return.book.tree</field>
-        <field name="model">return.book</field>
-        <field name="arch" type="xml">
-                <tree>
-                    <field name="reture_book"/>
-                </tree>
-        </field>
-    </record>
-    <record id="return_book_view_form" model="ir.ui.view">
-        <field name="name">return.book.form</field>
-        <field name="model">return.book</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="reture_book"/>
-                        <!-- <field name="books_return_ids" attrs="{'invisible':[('reture_book','=',False)]}"/> -->
+	<record id="return_book_view_tree" model="ir.ui.view">
+		<field name="name">return.book.tree</field>
+		<field name="model">return.book</field>
+		<field name="arch" type="xml">
+				<tree>
+					<field name="reture_book"/>
+				</tree>
+		</field>
+	</record>
+	<record id="return_book_view_form" model="ir.ui.view">
+		<field name="name">return.book.form</field>
+		<field name="model">return.book</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="reture_book"/>                        
+					</group>
+					<notebook>
+						<page string="Return" attrs="{'invisible':[('reture_book','=',False)]}">
+							<field name='books_return_ids'>
+								<tree editable ="bottom">
+									<field name="book_id"/>
+									<field name="quantity"/>
+									<field name="remaining_quantity"/>
+									<field name="return_quantity"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet> 
+				<footer>
+					<button special="cancel" data-hotkey="z" string="Cancel" class ="btn-secondary"/>
+					<button name = "action_confirm" data-hotkey="o" string="Return All" type="object" class="btn-primary"/>
+				</footer>
+			</form>
+		</field>
+	</record> 
 
-                    </group>
-                </sheet>
-                <notebook>
-                    <page>
-                        <field name='books_return_ids'>
-                            <tree editable ="bottom">
-                                <field name="book_id"/>
-                                <field name="quantity"/>
-                                <field name="return_quantity"/>
-                            </tree>
-                        </field>
-                    </page>
-                </notebook>
-
-
-                <footer>
-                    <button special="cancel" data-hotkey="z" string="Cancel" class ="btn-secondary"/>
-                    <button name = "action_confirm" data-hotkey="o" string="Return All" type="object" class="btn-primary"/>
-                </footer>
-            </form>
-        </field>
-    </record> 
-
-    <record id="action_return_book__view" model="ir.actions.act_window">
-        <field name="name">Return Book</field>
-        <field name="res_model">return.book</field>
-        <field name="view_mode">tree,form</field>
-    </record>
+	<record id="action_return_book__view" model="ir.actions.act_window">
+		<field name="name">Return Book</field>
+		<field name="res_model">return.book</field>
+		<field name="view_mode">tree,form</field>
+	</record>
 
 </odoo>

@@ -8,6 +8,7 @@
                     <field name="book_name_id"/>
                     <field name = "issue_bookline_ids"/>
                     <field name="issued_quantity"/>
+                    <field name="intermediate_quantity"/>
                     <field name="book_data_ids" widget="many2many_tags"/>
                     <field name="return_date"/>
                 </tree>
@@ -23,6 +24,7 @@
                         <field name="book_name_id"/>
                         <field name = "issue_bookline_ids"/>
                         <field name="issued_quantity"/>
+                        <field name="intermediate_quantity"/>
                         <field name="book_data_ids" widget="many2many_tags"/>
                         <field name="return_date"/>                        
                     </group>

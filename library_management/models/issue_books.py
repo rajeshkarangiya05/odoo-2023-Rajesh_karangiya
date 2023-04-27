@@ -25,6 +25,10 @@ class IssueBooks(models.Model):
 	user_send_email = fields.Char(string="Send Mail To")
 	check_box = fields.Boolean("Manual Entry")
 	payable = fields.Integer("Payable",compute="compute_payable_charge")
+	nationality = fields.Selection(selection=[('indian','Indian'),('pakistan','Pakistan')],string="Nationality")
+
+
+
 	
 			
 	# defining method for automatic filling the fields 
@@ -45,6 +49,7 @@ class IssueBooks(models.Model):
 
 	# defining method for issue button
 	def issue_view(self):
+		print("test_1......................",self._context)
 		for rec in self:
 			rec.write({'state': "issued"})
 			self.issue_date = datetime.now().date()
@@ -88,9 +93,13 @@ class IssueBooks(models.Model):
 
 	# defining method for return button
 	def return_view(self):
+		print("test_3......................",self._context)
 		new_list=[]
 		for rec in self.books_lines_ids:
-			new_list.append((0,0,{'book_id':rec.book_name_id.id,'quantity':rec.issued_quantity,'return_quantity':rec.issued_quantity}))
+			new_list.append((0,0,{'book_id':rec.book_name_id.id,
+				'quantity':rec.issued_quantity,
+				'return_quantity':rec.intermediate_quantity,
+				'remaining_quantity':rec.intermediate_quantity}))
 		return {
 			"type":"ir.actions.act_window",
 			"name":"Return Book",
@@ -104,10 +113,24 @@ class IssueBooks(models.Model):
 		}
 
 
-	# defining method for button "user data" to get details of user from res partner model
+	# defining method for button "pass context" to get details of user from res partner model
 	def return_users(self):
-		fields = ['name', 'email']
-		partner_id = self.env['book.details'].search_count([])
+		# def test_case(self):
+		context = dict(self._context)
+		for record in self:	
+			if record.nationality == 'pakistan':
+				context["Nationality"]='Pakistan'
+
+		
+		return {
+			"type":"ir.actions.act_window",
+			"name":"Pass context",
+			"res_model":"pass.context",
+			"view_mode":"form",
+			"target":"new",
+			"context": context,
+		}
+	
 
 
 
@@ -166,7 +189,8 @@ class IssueBooks(models.Model):
 				('book_name_id','=',rec.book_name_id.id)])
 			if count > 1:
 				raise ValidationError('Same book lines are added')
+
+	
 	
 
-		
 	
