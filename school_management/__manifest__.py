@@ -5,7 +5,7 @@
     "version": "14.0.0.1.0",
     "category": "Management",
     "website": "https://www.aktivsoftware.com/",
-    "depends": ['contacts'],
+    "depends": ['contacts', 'sale'],
     "data": [
         'security/ir.model.access.csv',
         'data/ir_sequence_data.xml',
@@ -17,6 +17,7 @@
         'wizard/leave_school_views.xml',
         'report/student_report.xml',
         'report/student_report_templates.xml',
+        'views/sale_order_views.xml',
     ],
     "demo": [], 
     "qweb": [],

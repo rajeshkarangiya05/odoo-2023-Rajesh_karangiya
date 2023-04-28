@@ -3,13 +3,20 @@
     <template id="report_student">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
-                <t t-call="web.external_layout">
+                <!-- <t t-call="web.external_layout"> -->
+                <div class="header" style="border-bottom: 1px solid black;">
+                    <!-- <t t-esc="request.env.company.logo"/> -->
+                    <img t-if="request.env.company.logo" t-att-src="image_data_uri(request.env.company.logo)" style="max-height: 45px;" alt="Logo"/>
+                </div>
                     
                     <span>Student name: <span t-field="doc.name"/></span><br/>
                     <span>Phone Number  : <span t-field="doc.phone"/></span><br/>
                     <span>Email: <t t-esc="doc.stu_email"/></span><br/>
                     <span>Roll No. : <span t-field="doc.roll_no"/></span><br/>
-                </t>
+                <div class="footer" style="border-top: 1px solid black;">
+                    Vijapur
+                </div>
+                <!-- </t> -->
             </t>
         </t>
     </template>

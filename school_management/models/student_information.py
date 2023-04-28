@@ -51,9 +51,14 @@ class StudentInformation(models.Model):
 
     @api.model
     def default_get(self, fields):
+        print("\n\n\n default_get", fields)
         res = super(StudentInformation, self).default_get(fields)
+        print("\n\n")
+        print("res----------------",res)
         if 'height' in fields:
             res['height'] = 10
+        print("\n\n")
+        print("res ,, --------------------", res)    
         return res
 
 
