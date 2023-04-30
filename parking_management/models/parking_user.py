@@ -16,6 +16,8 @@ class ParkingUser(models.Model):
 		 copy=False, default='draft')
 	payment = fields.Many2one("payment.type", string="Payment Type")
 	slots = fields.Many2one("slot.data", string="Choose Slot")
+	age = fields.Integer("Age compute",compute="compute_age")
+	age2 = fields.Integer("Age2 onchange")
 
 	# mehtod for "Avaialable Slotes" smart button
 	@api.onchange("Vehicle_type_id")
@@ -49,6 +51,22 @@ class ParkingUser(models.Model):
 			print("\n\n\n token_data",token_data)
 			token_data.token_user = rec.token
 			print("token_data.token_user",token_data.token_user)
+
+	@api.depends("slots")
+	def compute_age(self):
+		for rec in self:
+			rec.age = 0
+			if rec.slots:
+				rec.age = 10
+				print("\n\n changes happend in compute")
+			
+
+	@api.onchange("slots")
+	def _onchange_age(self):
+		if self.slots:
+			self.age2 = 5
+			print("\n\n changes happend in onchange")
+
 
 
 

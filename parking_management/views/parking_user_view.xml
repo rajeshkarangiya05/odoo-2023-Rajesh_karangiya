@@ -34,6 +34,8 @@
                     </div>
 					<group>
 						<field  name="token" attrs="{'invisible':[('state','=','draft')],'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
+						<field name = "age"/>
+						<field name="age2"/>
 						<field name="payment" attrs="{'invisible':['|',('state','=','draft'),('state','=','token')]}"/>
 						<field  name="name" attrs="{'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
 						<field  name="vehicle_number" attrs="{'readonly':['|',('state','=','token'),('state','=','payment')]}"/>

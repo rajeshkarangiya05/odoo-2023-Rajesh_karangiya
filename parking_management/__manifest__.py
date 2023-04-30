@@ -6,6 +6,7 @@
 	"summary":"Parking Management",
 	"description":"Parking management app",
 	"website":"http://192.46.214.132:8015/web/login",
+	"depends":['sale'],
 	"data":[
 		"security/ir.model.access.csv",
 		"data/ticket_sequence.xml",
@@ -14,6 +15,7 @@
 		"views/payment_type_view.xml",
 		"views/vehicle_type_view.xml",
 		"views/slot_data_view.xml",
+		"views/billing_user_view.xml",
 		"views/base_name_view.xml",
 		"wizards/choose_vehicle_view.xml",
 
