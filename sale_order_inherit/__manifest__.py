@@ -3,9 +3,9 @@
 	"description":"Sale order inhert",
 	"version":"15.0.0",
 	"category":'sales',
-	'depends':['sale'],
+	'depends':['sale','contacts'],
 	"data":[
-		"views/sales_name_change_view.xml",
+		# "views/sales_name_change_view.xml",
 
 
 

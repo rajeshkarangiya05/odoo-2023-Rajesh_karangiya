@@ -6,7 +6,7 @@ class BillingUser(models.Model):
 	_inherit = 'sale.order'
 
 	partner_id = fields.Many2one(
-		'res.partner', string='User', readonly=True,
+		'res.partner', string='Viren', readonly=True,
 		states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
 		required=True, change_default=True, index=True, tracking=1,
 		domain="[('type', '!=', 'private'), ('company_id', 'in', (False, company_id))]",)

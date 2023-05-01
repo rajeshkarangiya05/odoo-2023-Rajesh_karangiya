@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="admin_mail_id" model="mail.template">
+		<field name="name">Admin Email Template</field>
+		<field name="model_id" ref="parking_management.model_slot_data"/>
+		<field name="email_from">{{"rajesh@icreativetechnolabs.com"}}</field>
+		<field name="email_to">{{object.create_uid.email}}</field>
+		<field name="subject">Basement report</field>
+		<field name="body_html" type="html">
+			<table>
+				<tr>
+					<td>
+						Dear <t t-out="object.create_uid.name"/>,
+						<br/>
+						<br/>
+						<p>
+							Please find attached herewith the report of Basement
+							                       
+						</p>
+						Regards,
+						Your faithfully,
+
+					</td>
+				</tr>
+			</table>
+		</field>
+  </record>
+</odoo>

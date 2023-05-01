@@ -23,14 +23,33 @@ class MedicineInformation(models.Model):
     # create method for expiry date and batch number
     @api.model
     def create(self,vals):
+        count = 0
         if not vals["exp_date"] :
             raise ValidationError("Enter valid expiry date")
         if not vals.get('batch_no'):
             seq = self.env['ir.sequence'].next_by_code('medicine.information')
+            print("==================>", seq)
             date_three=date.today().strftime("%b")
+            number= self.env["ir.sequence.date_range"].search([('id','=','43')])
+            print("**************",number.date_to)
+            input_dt = datetime.now()
+            last_month_date = input_dt + relativedelta.relativedelta(day=31)
+            print(last_month_date)
+            first_month_date = input_dt + relativedelta.relativedelta(day=1)
+            print("first",first_month_date)
+            number.date_from = first_month_date
+            number.date_to = last_month_date
+            # rrr = [{
+            #     "date_to":last_month_date
+            # }]
+            # t = self.env["ir.sequence.date_range"].write(rrr)
+            # print("tttttttttttttt",t)
+
             vals["batch_no"] = seq[0:4]+date_three+"/"+seq[4:]
             print("\n\n\n\n\n",vals)
+            # print("seq ======>",number._create_date_range_seq.date_to)
         return super(MedicineInformation,self).create(vals)
+
 
     # write method for validating for expiry date
     def write(self,vals):
@@ -46,6 +65,24 @@ class MedicineInformation(models.Model):
         if 'company' in fields:
             res['company'] = "Zydus Limited"
         return res
+
+    # write name_get method to get name and expiry date in drop down
+    def name_get(self):
+        result=[]
+        for element in self:
+            medicine = element.name +" ["+ str(element.exp_date)+"]"
+            result.append((element.id,medicine))
+        return result
+
+    # write name_search method to search medicine by its name or reference no or expiry date
+
+    @api.model
+    def _name_search(self, name, args=None, operator="ilike", limit=100, name_get_uid=None):
+        args=args or []
+        if name:
+            args = ['|','|',('name',operator,name),('ref_no',operator,name),("exp_date",operator,name)] + args
+        return self._search(args, limit=limit, access_rights_uid=name_get_uid)
+
 
 
 

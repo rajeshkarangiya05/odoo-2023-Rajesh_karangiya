@@ -17,6 +17,7 @@ class BookDetails(models.Model):
 	stock_quantity = fields.Integer(string="Stock Quantity",compute="_compute_stock_quantity")
 	book_types_ids = fields.Many2many("book.type", "book_type_id", string="Book Types")
 	charges = fields.Integer(string="Return charges")
+	book_image = fields.Binary("Book Image")
 	
 
 	# defining sequence for book id
@@ -26,7 +27,7 @@ class BookDetails(models.Model):
 			seq = self.env['ir.sequence'].next_by_code('book.details')
 			date_three=date.today().strftime("%b")
 			vals["book_id"] = seq[0:3]+date_three.upper()+"/"+seq[3:]
-		return super(BookAuthor,self).create(vals)
+		return super(BookDetails,self).create(vals)
 
 	# write name get method for book name
 	def name_get(self):

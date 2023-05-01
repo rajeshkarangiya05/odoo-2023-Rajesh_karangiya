@@ -6,15 +6,17 @@
 		<field name="model">sale.order</field>
 		<field name="inherit_id" ref="sale.view_order_form"/>
 		<field name="arch" type="xml">
-			<sheet>
-				<notebook>
-					<page string="test">
-					</page>
-				</notebook>
-			</sheet>
-			<!-- <field name="partner_id" position="before"> -->
-				<!-- <field name="sale_order"/> -->
-			<!-- </field> -->
+			<field name="partner_id" position="before">
+				<field name="rajesh"/>
+			</field>
+			<xpath expr="//notebook/page[@name='order_lines']" position="after">
+				<page string="test_1">
+					<group>
+						<field name="rajesh" position="inside"/>
+					</group>
+				</page>
+			</xpath>
+
 		</field>
 	</record>
 </odoo>

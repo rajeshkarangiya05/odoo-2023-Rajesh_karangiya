@@ -12,3 +12,4 @@ class MedicineStock(models.Model):
 	year = fields.Date(string="Date")
 
 
+

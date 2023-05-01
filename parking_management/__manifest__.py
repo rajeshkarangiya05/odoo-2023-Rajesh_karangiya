@@ -10,6 +10,9 @@
 	"data":[
 		"security/ir.model.access.csv",
 		"data/ticket_sequence.xml",
+		"data/mail_template_view.xml",
+		"data/admin_mail_template_view.xml",
+		"data/action_send_mail.xml",
 		"views/parking_user_view.xml",
 		"views/parking_data_view.xml",
 		"views/payment_type_view.xml",

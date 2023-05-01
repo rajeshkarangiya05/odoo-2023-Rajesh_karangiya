@@ -3,7 +3,7 @@
 	<data noupdate="0">
 
 		<!-- sequence for medicine lot -->
-		<record id="seq_medicine_name" model="ir.sequence">
+		<record id="seq_medicine_lot_name" model="ir.sequence">
 			<field name="name">Medicine Lot</field>
 			<field name="code">medicine.lot</field>
 			<field name="padding">3</field>

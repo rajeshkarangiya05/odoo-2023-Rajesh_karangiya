@@ -8,6 +8,7 @@ class IssueBooks(models.Model):
 	_name="issue.books"
 	_description="Issue Book Details"
 	_rec_name = "name_id"
+	_inherit = 'mail.thread'
 
 	name_id = fields.Many2one("res.partner",string="Name", required=True)
 	email = fields.Char(string="Email")

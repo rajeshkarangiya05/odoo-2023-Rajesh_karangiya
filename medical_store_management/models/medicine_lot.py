@@ -10,20 +10,20 @@ class MedicineLot(models.Model):
 	manufacturing = fields.Date(string="Manufacturing Date")
 	expiry = fields.Date(string="Expiry Date")
 	quantity = fields.Integer(string="Quantity")
-	state_lot = fields.Selection(selection=[('draft', 'Expired'),
-		('done', 'Not Expired'),],
+	state = fields.Selection(selection=[('draft', 'Not Expired'),
+		('done', 'Expired'),],
 		 string='Status', required=True, readonly=True, copy=False, tracking=True, default='draft')
 
 	# create method for medicine lot number
-	@api.model
-	def create(self,vals):
-	    if not vals.get('lot'):
-	        seq_lot = self.env['ir.sequence'].next_by_code('medicine.lot')
-	        vals["lot"] = seq_lot
-	    return super(MedicineLot,self).create(vals)
+	# @api.model
+	# def create(self,vals):
+	#     if not vals.get('lot'):
+	#         seq_lot = self.env['ir.sequence'].next_by_code('medicine.lot')
+	#         vals["lot"] = seq_lot
+	#     return super(MedicineLot,self).create(vals)
 
-	# def button_expiry(self):
-	# 	for rec in self:
-	# 		rec.write({'state': "draft"})
+	def medicine_lot_view(self):
+		for rec in self:
+			rec.write({'state': "done"})
 
 

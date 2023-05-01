@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record model="ir.ui.view" id="res_partner_author_inherited_form_view">
+		<field name="name">res.partner.author.inherited.form.view</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form"/>
+		<field name="arch" type="xml">
+			<field name="vat" position="after">
+				<group>
+					<field name="is_author"/>
+				</group>
+			</field>
+		</field>
+	</record>
+
+
+	<record id="action_contacts" model="ir.actions.act_window">
+			<field name="name">Contacts</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner</field>
+			<field name="view_mode">kanban,tree,form,activity</field>
+			<field name="domain">[('is_author','=','True')]</field>
+	</record>
+
+	<menuitem id="author_detail_liti" name="Author" sequence="2" action="action_contacts" parent="contacts.menu_contacts"/>
+
+</odoo>

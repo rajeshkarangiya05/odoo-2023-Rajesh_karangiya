@@ -21,4 +21,10 @@ class SlotData(models.Model):
 			res.append((rec.id,slots))
 		return res
 
+	def action_send_mail(self):
+		for rec in self:
+			template = self.env.ref('parking_management.admin_mail_id').id	
+			template_id = self.env['mail.template'].browse(template)
+			template_id.send_mail(rec.id, force_send=True)
+
 
