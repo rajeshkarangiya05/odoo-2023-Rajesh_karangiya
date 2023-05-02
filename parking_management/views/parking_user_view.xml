@@ -6,7 +6,7 @@
 		<field name="arch" type="xml">
 			<tree>
 				<field name="token"/>
-				<field  name="name"/>
+				<field  name="name_id"/>
 				<field  name="vehicle_number"/>
 				<field  name="Vehicle_type_id"/>
 				<field  name="phone"/>
@@ -25,19 +25,18 @@
 				</header>		
 				<sheet>
 					<div class="oe_button_box" name="button_box">
-                        <button name="action_two_wheel_slots"
-                                type="object"
-                                class="oe_stat_button"
-                                icon="fa-pencil-square-o">
-                                <field string ="Available Slots" name = "two_wheel_slot" widget="statinfo"/>
-                        </button>
-                    </div>
+						<button name="action_two_wheel_slots"
+								type="object"
+								class="oe_stat_button"
+								icon="fa-pencil-square-o">
+								<field string ="Available Slots" name = "two_wheel_slot" widget="statinfo"/>
+						</button>
+					</div>
 					<group>
+						<field name="user_image" widget="oe_avatar"/>
 						<field  name="token" attrs="{'invisible':[('state','=','draft')],'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
-						<field name = "age"/>
-						<field name="age2"/>
 						<field name="payment" attrs="{'invisible':['|',('state','=','draft'),('state','=','token')]}"/>
-						<field  name="name" attrs="{'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
+						<field  name="name_id" attrs="{'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
 						<field  name="vehicle_number" attrs="{'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
 						<field  name="Vehicle_type_id" attrs="{'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
 						<field  name="phone" attrs="{'readonly':['|',('state','=','token'),('state','=','payment')]}"/>
@@ -47,25 +46,66 @@
 			</form>
 		</field>
 	</record>
-	
+
+	<record id="parking_user_view_kanban" model="ir.ui.view">
+		<field name="name">parking.user.view.kanban</field>
+		<field name="model">parking.user</field>
+		<field name="arch" type="xml">
+			<kanban class="o_res_partner_kanban">
+				<field name="token"/>
+				<field name="name_id"/>
+				<field name="vehicle_number"/>
+				<field name="Vehicle_type_id"/>
+				<field name="phone"/>
+				<field name="user_image"/>
+				<field name="id"/>
+				<templates>
+					<t t-name="kanban-box">
+						<div t-attf-class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click">
+							<div class="o_kanban_content p-0 m-0 position-relative row d-flex flex-fill">
+								<div class="col-12 bg-primary p-2 text-center d-flex flex-column justify-content-center">
+							 	<field name="token"/>
+							</div>
+							<div class="col-0 py-0 px-0 d-flex flex-column justify-content-between pt-3">
+								<div class="o_kanban_image">
+									<img alt="Contact image" t-att-src="kanban_image('parking.user', 'user_image', record.id.raw_value)"/>
+								</div>
+									<div class="oe_kanban_details">
+										<div><b>Token:</b><b><field name="token"/></b></div>
+										<div><b>Name:</b><field name="name_id"/></div>
+										<div><b>Vehicle Number:</b><field name="vehicle_number"/></div>
+										<div><b>Vehicle Type:</b><field name="Vehicle_type_id"/></div>
+										<div><b>Phone:</b><field name="phone"/></div>
+									</div>
+								</div>
+							</div>
+
+							</div>
+					</t>
+
+				</templates>
+			</kanban>
+		</field>
+	</record>
+
 	<record id="action_praking_user_view" model="ir.actions.act_window">
 		<field name="name">User Details</field>
 		<field name="res_model">parking.user</field>
-		<field name="view_mode">tree,form</field>
+		<field name="view_mode">tree,kanban,form</field>
 	</record>
 
 	<menuitem id="menu_parking_user"
-            name="Parking"
-            sequence="1"/>
+			name="Parking"
+			sequence="1"/>
 
-    <menuitem id="sub_menu_parking_user"
-            name="Booking"
-            parent="menu_parking_user"
-            sequence="2"/>
+	<menuitem id="sub_menu_parking_user"
+			name="Booking"
+			parent="menu_parking_user"
+			sequence="2"/>
 
-    <menuitem id="menu_parking_user_data"
-            action="action_praking_user_view"
-            name="User Data"
-            parent="sub_menu_parking_user"
-            sequence="3"/>
+	<menuitem id="menu_parking_user_data"
+			action="action_praking_user_view"
+			name="User Data"
+			parent="sub_menu_parking_user"
+			sequence="3"/>
 </odoo>

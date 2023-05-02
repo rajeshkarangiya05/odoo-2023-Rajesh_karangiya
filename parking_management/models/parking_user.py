@@ -5,7 +5,7 @@ class ParkingUser(models.Model):
 	_description="Menu"
 
 
-	name=fields.Char(string="Name", required=True)
+	name_id=fields.Many2one("res.partner",string="Name", required=True)
 	vehicle_number=fields.Char(string="Vehicle Number")
 	phone=fields.Char(string="Phone No.")
 	Vehicle_type_id = fields.Many2one("vehicel.type",string="Choose vehicle Type")
@@ -16,8 +16,7 @@ class ParkingUser(models.Model):
 		 copy=False, default='draft')
 	payment = fields.Many2one("payment.type", string="Payment Type")
 	slots = fields.Many2one("slot.data", string="Choose Slot")
-	age = fields.Integer("Age compute",compute="compute_age")
-	age2 = fields.Integer("Age2 onchange")
+	user_image = fields.Binary("User Image")
 
 	# mehtod for "Avaialable Slotes" smart button
 	@api.onchange("Vehicle_type_id")
@@ -52,20 +51,16 @@ class ParkingUser(models.Model):
 			token_data.token_user = rec.token
 			print("token_data.token_user",token_data.token_user)
 
-	@api.depends("slots")
-	def compute_age(self):
+	@api.onchange("name_id")
+	def _onchange_default_image(self):
 		for rec in self:
-			rec.age = 0
-			if rec.slots:
-				rec.age = 10
-				print("\n\n changes happend in compute")
-			
+			record = self.env["res.partner"].search([('id','=',rec.name_id.id)])
+			rec.user_image = record.image_1920
 
-	@api.onchange("slots")
-	def _onchange_age(self):
-		if self.slots:
-			self.age2 = 5
-			print("\n\n changes happend in onchange")
+
+
+
+
 
 
 

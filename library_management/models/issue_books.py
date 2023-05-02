@@ -27,9 +27,17 @@ class IssueBooks(models.Model):
 	check_box = fields.Boolean("Manual Entry")
 	payable = fields.Integer("Payable",compute="compute_payable_charge")
 	nationality = fields.Selection(selection=[('indian','Indian'),('pakistan','Pakistan')],string="Nationality")
+	color = fields.Integer(string="Color",compute="_compute_get_color")
 
 
-
+	def _compute_get_color(self):
+		for rec in self:
+			if rec.state == 'draft':
+				rec.color = 1
+			elif rec.state == 'issued':
+				rec.color = 3
+			else:
+				rec.color = 4
 	
 			
 	# defining method for automatic filling the fields 
@@ -50,21 +58,18 @@ class IssueBooks(models.Model):
 
 	# defining method for issue button
 	def issue_view(self):
-		print("test_1......................",self._context)
-		for rec in self:
-			rec.write({'state': "issued"})
-			self.issue_date = datetime.now().date()
-			for data in self.books_lines_ids:
-				quantity = data.issued_quantity
-				register_book_data = self.env["register.books"].search([('id','=',data.id)])
-				register_book_data.issue_bookline_ids=self.id
-				for _ in range(quantity):					
-					register_id = [{"bookid":data.id,
-					'issue_book_id':self.id,
-					'outgoing_date':self.issue_date,
-					'user_id':self.name_id.id,
-					'books_id_name':data.book_name_id}]
-					issueData = self.env["register.date"].create(register_id)
+		self.issue_date = datetime.now().date()
+		for data in self.books_lines_ids:
+			quantity = data.issued_quantity
+			register_book_data = self.env["register.books"].search([('id','=',data.id)])
+			register_book_data.issue_bookline_ids=self.id
+			for _ in range(quantity):					
+				register_id = [{"bookid":data.id,
+				'issue_book_id':self.id,
+				'outgoing_date':self.issue_date,
+				'user_id':self.name_id.id,
+				'books_id_name':data.book_name_id}]
+				issueData = self.env["register.date"].create(register_id)
 
 					
 

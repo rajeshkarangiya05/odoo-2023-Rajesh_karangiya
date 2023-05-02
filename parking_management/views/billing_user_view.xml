@@ -457,8 +457,8 @@
 		</record>
 
 		<menuitem id="sub_menu_billing_user"
-				name="Billing User"
-				parent="sub_menu_parking_data"
-				action="action_billing_user_view"
-				sequence="5"/>
+			name="Booking"
+			action = "action_billing_user_view"
+			parent="menu_parking_user"
+			sequence="4"/>
 </odoo>

@@ -2,90 +2,130 @@
 <odoo>
 	<record id="issue_book_view_tree" model="ir.ui.view">
 		<field name="name">issue.book.tree</field>
-        <field name="model">issue.books</field>
-        <field name="arch" type="xml">
-                <tree>
-                    <field name="name_id"/>
-                    <field name="email"/>
-                    <field name="phone"/>
-                    <field name="address"/>
-                    <field name="books_lines_ids"/>
-                    <field name="issue_date"/>
-                </tree>
-        </field>
-    </record>
-    <record id="issue_book_view_form" model="ir.ui.view">
-        <field name="name">issue.book.form</field>
-        <field name="model">issue.books</field>
-        <field name="arch" type="xml">
-            <form>
-                <header>
-                    <button name="return_users" type="object" class="btn-primary" string="Pass Context"/>
-                    <button name="add_new_data" type="object" class="btn-primary" string="CreateDummyBook"/>
-                    <button name="Delete_given_data" type="object" class="btn-primary" string="DeleteDummys"/>
-                    <button name="issue_view" class="oe_highlight" states="draft" string="Issue" type="object" context="{'default_state':state}"/>
-                    <button name="return_view" class="oe_highlight" states="issued" string="Return" type="object"/> 
-                    <field name="state" widget="statusbar" statusbar_visible="draft,issued,return"/>
-                </header> 
-                <sheet>
-                    <group>
-                        <group>
-                            <field name="name_id" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
-                            <field name="email" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
-                            <field name="phone" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
-                            <field name="address" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
-                            <field name="user_send_email" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
-                        </group>
-                        <group>
-                            <field name="nationality" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
-                            <field name="check_box" attrs="{'invisible':['|',('state','=','issued'),('state','=','return')]}"/>
-                            <field name="book_name" attrs="{'invisible':['|','|',('check_box','=',False),('state','=','issued'),('state','=','return')]}"/>
-                            <field name="quantity" attrs="{'invisible':['|','|',('check_box','=',False),('state','=','issued'),('state','=','return')]}"/>               
-                            <field name="payable" attrs="{'invisible':[('state','=','draft')],'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
-                        </group>
-                    </group>
-                    <notebook>
-                        <page string="Book details" >
-                            <field name="books_lines_ids" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}">
-                                <tree editable="bottom">
-                                    <field name="book_name_id"/>
-                                    <field name="book_data_ids" widget="many2many_tags"/>
-                                    <field name="issued_quantity"/>
-                                    <field name="intermediate_quantity" invisible="context.get('default_state',False)"/>
-                                    <field name="return_date"/>
-                                </tree>
-                            </field>
-                        </page>
-                    </notebook>
-                    <div class="oe_chatter">
-                        <field name = "message_follower_ids"/>
-                        <field name = "message_ids"/>
-                    </div>
-                </sheet>
-            </form>
-        </field>
-    </record> 
+		<field name="model">issue.books</field>
+		<field name="arch" type="xml">
+				<tree>
+					<field name="name_id"/>
+					<field name="email"/>
+					<field name="phone"/>
+					<field name="address"/>
+					<field name="books_lines_ids"/>
+					<field name="issue_date"/>
+				</tree>
+		</field>
+	</record>
 
-    <record id="issue_book_view" model="ir.actions.act_window">
-        <field name="name">Issue Book</field>
-        <field name="res_model">issue.books</field>
-        <field name="view_mode">tree,form</field>
-    </record>
+	<record id="issue_books_search" model="ir.ui.view">
+		<field name="name">issue.books.search</field>
+		<field name="model">issue.books</field>
+		<field name="arch" type="xml">
+			<search>
+				<filter name="drafts_records" string="Drafts" domain="[('state', '=', 'draft')]"/>
+				<filter name="issued_records" string="Issued" domain="[('state', '=', 'issued')]"/>
+			</search>
+		</field>
+	</record>
 
-    <menuitem id="book_details_Menu"
-            name="Books"
-            sequence="1"/>
+	<record id="issue_book_view_kanban" model="ir.ui.view">
+		<field name="name">issue.books.view.kanban</field>
+		<field name="model">issue.books</field>
+		<field name="arch" type="xml">
+			<kanban class="o_res_partner_kanban" default_group_by="state">
+				<field name="name_id"/>
+				<field name="email"/>
+				<field name="phone"/>
+				<field name="address"/>
+				<field name="color"/>
+				<templates>
+					<t t-name="kanban-box">
+						<div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+							<div class="oe_kanban_details">
+								<strong class="o_kanban_record_title">
+									<div><b>Name: </b><field name="name_id"/></div>
+									<div><b>Email: </b><field name="email"/></div>
+									<div><b>Phone: </b><field name="phone"/></div>
+									<div><b>Address: </b><field name="address"/></div>
+								</strong>
+							</div>
+						</div>
+					</t>
+				</templates>
+			</kanban>
+		</field>
+	</record>
 
-    <menuitem id="book_details_user"
-            name="User Data"
-            parent="book_details_Menu"
-            action="issue_book_view"
-            sequence="2"/>
+	<record id="issue_book_view_form" model="ir.ui.view">
+		<field name="name">issue.book.form</field>
+		<field name="model">issue.books</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="return_users" type="object" class="btn-primary" string="Pass Context"/>
+					<button name="add_new_data" type="object" class="btn-primary" string="CreateDummyBook"/>
+					<button name="Delete_given_data" type="object" class="btn-primary" string="DeleteDummys"/>
+					<button name="issue_view" class="oe_highlight" states="draft" string="Issue" type="object" context="{'default_state':state}"/>
+					<button name="return_view" class="oe_highlight" states="issued" string="Return" type="object"/> 
+					<field name="state" widget="statusbar" statusbar_visible="draft,issued,return"/>
+				</header> 
+				<sheet>
+					<group>
+						<group>
+							<field name="name_id" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
+							<field name="email" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
+							<field name="phone" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
+							<field name="address" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
+							<field name="user_send_email" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
+						</group>
+						<group>
+							<field name="nationality" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
+							<field name="check_box" attrs="{'invisible':['|',('state','=','issued'),('state','=','return')]}"/>
+							<field name="book_name" attrs="{'invisible':['|','|',('check_box','=',False),('state','=','issued'),('state','=','return')]}"/>
+							<field name="quantity" attrs="{'invisible':['|','|',('check_box','=',False),('state','=','issued'),('state','=','return')]}"/>               
+							<field name="payable" attrs="{'invisible':[('state','=','draft')],'readonly':['|',('state','=','issued'),('state','=','return')]}"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Book details" >
+							<field name="books_lines_ids" attrs="{'readonly':['|',('state','=','issued'),('state','=','return')]}">
+								<tree editable="bottom">
+									<field name="book_name_id"/>
+									<field name="book_data_ids" widget="many2many_tags"/>
+									<field name="issued_quantity"/>
+									<field name="intermediate_quantity" invisible="context.get('default_state',False)"/>
+									<field name="return_date"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+					<div class="oe_chatter">
+						<field name = "message_follower_ids"/>
+						<field name = "message_ids"/>
+					</div>
+				</sheet>
+			</form>
+		</field>
+	</record> 
 
-    <menuitem id="book_details_data"
-            name="Library Data"
-            parent="book_details_Menu"
-            action="issue_book_view"
-            sequence="3"/>
+	<record id="issue_book_view" model="ir.actions.act_window">
+		<field name="name">Issue Book</field>
+		<field name="res_model">issue.books</field>
+		<field name="view_mode">tree,kanban,form</field>
+	</record>
+
+	<menuitem id="book_details_Menu"
+			name="Books"
+			sequence="1"/>
+
+	<menuitem id="book_details_user"
+			name="User Data"
+			parent="book_details_Menu"
+			action="issue_book_view"
+			sequence="2"/>
+
+	<menuitem id="book_details_data"
+			name="Library Data"
+			parent="book_details_Menu"
+			action="issue_book_view"
+			sequence="3"/>
 
 </odoo>
