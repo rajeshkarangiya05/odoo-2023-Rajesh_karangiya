@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="hotel_user_booking_view_tree" model="ir.ui.view">
+		<field name="name">hotel.user.booking.view.tree</field>
+		<field name="model">hotel.room.booking</field>
+		<field name="arch" type="xml">
+				<tree>
+					<field name="hotel_id"/>
+					<field name="customer_id"/>
+					<field name="user_email"/>
+					<field name="user_address"/>
+					<field name="checkin_date"/>
+					<field name="checkout_date"/>
+				</tree>
+		</field>
+	</record>
+
+	<record id="hotel_user_booking_view_form" model="ir.ui.view">
+		<field name="name">hotel.user.booking.view.form</field>
+		<field name="model">hotel.room.booking</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="Approve_booking" class="oe_highlight" states="draft" string="Approve" type="object"/>
+					<button name="cancel_booking" class="oe_highlight" states="booked" string="Cancel" type="object"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,booked,cancel"/>
+				</header>
+				<sheet>
+					<group>
+						<field name="hotel_id"/>
+						<field name="customer_id"/>
+						<field name="user_email"/>
+						<field name="user_address"/>
+						<field name="checkin_date"/>
+						<field name="checkout_date"/>				
+					</group>
+					<notebook>
+						<page string="Room Details" >
+							<field name="room_lines_ids">
+								<tree editable="bottom">
+									<field name="hotel_room_id" />
+									<field name="count_adults"/>
+									<field name="count_children"/>
+									<field name="default_price"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>				
+				</sheet>
+			</form>
+		</field>
+	</record> 
+
+	<record id="action_user_booking_view" model="ir.actions.act_window">
+		<field name="name">Hotel User Booking</field>
+		<field name="res_model">hotel.room.booking</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="menu_user_booking"
+			name="Hotel User Booking"
+			parent="main_menu_hotel"
+			action="action_user_booking_view"
+			sequence="5"/>
+</odoo>

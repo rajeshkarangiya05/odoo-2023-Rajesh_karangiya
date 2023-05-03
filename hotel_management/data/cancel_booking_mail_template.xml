@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="cancel_booking_id" model="mail.template">
+		<field name="name">Cancel Booking Template</field>
+		<field name="model_id" ref="hotel_management.model_cancel_booking"/>
+		<field name="email_from">{{"rajesh@icreativetechnolabs.com"}}</field>
+		<field name="email_to">{{object.create_uid.email}}</field>
+		<field name="subject">Cancel Booking </field>
+		<field name="body_html" type="html">
+			<table>
+				<tr>
+					<td>
+						<br/>
+						<br/>
+						<p>
+							You have cancel booking successfully                          
+						</p>
+						Regards,
+					</td>
+				</tr>
+			</table>
+		</field>
+  </record>
+</odoo>

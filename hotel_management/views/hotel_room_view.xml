@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="hotel_room_view_tree" model="ir.ui.view">
+		<field name="name">hotel.room.tree</field>
+		<field name="model">hotel.room</field>
+		<field name="arch" type="xml">
+				<tree>
+					<field name="roomId"/>
+					<field name="number_of_rooms"/>
+					<field name="room_description"/>
+					<field name="hotel_name_id"/>
+					<field name="room_type"/>
+					<field name="discount"/>
+					<field name="discount_valid_from"/>
+					<field name="discount_valid_to"/>
+					<field name="room_price"/>
+				</tree>
+		</field>
+	</record>
+
+	<record id="hotel_room_view_form" model="ir.ui.view">
+		<field name="name">hotel.room.form</field>
+		<field name="model">hotel.room</field>
+		<field name="arch" type="xml">
+			<form>			
+				<sheet>
+					<group>
+						<group>						
+							<field name="roomId"/>
+							<field name="number_of_rooms"/>
+							<field name="room_description"/>
+							<field name="hotel_name_id"/>
+							<field name="room_type"/>				
+						</group>
+						<group>
+							<field name="discount"/>
+							<field name="discount_valid_from"/>
+							<field name="discount_valid_to"/>
+							<field name="room_price"/>
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record> 
+
+	<record id="action_hotel_room_view" model="ir.actions.act_window">
+		<field name="name">Hotel Room</field>
+		<field name="res_model">hotel.room</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="menu_hotel_room"
+			name="Hotel Room"
+			parent="main_menu_hotel"
+			action="action_hotel_room_view"
+			sequence="3"/>
+</odoo>

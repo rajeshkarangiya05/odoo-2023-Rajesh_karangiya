@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="hotel_user_id" model="mail.template">
+		<field name="name">Hotel User Template</field>
+		<field name="model_id" ref="hotel_management.model_hotel_room_booking"/>
+		<field name="email_from">{{"rajesh@icreativetechnolabs.com"}}</field>
+		<field name="email_to">{{object.user_email}}</field>
+		<field name="subject">Booked successfully</field>
+		<field name="body_html" type="html">
+			<table>
+				<tr>
+					<td>
+						Dear <t t-out="object.customer_id.name"/>,
+						<br/>
+						<br/>
+						<p>
+							You have booked successfully                          
+						</p>
+						Regards,
+					</td>
+				</tr>
+			</table>
+		</field>
+  </record>
+</odoo>
