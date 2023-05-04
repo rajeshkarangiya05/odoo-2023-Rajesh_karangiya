@@ -16,8 +16,8 @@
 		"data/cancel_booking_mail_template.xml",
 		"views/hotel_management_view.xml",
 		"views/hotel_room_view.xml",
-		"views/hotel_booking_lines_view.xml",
-		"views/hotel_user_booking_view.xml",
+		"views/hotel_room_booking_lines_view.xml",
+		"views/hotel_room_booking_view.xml",
 		"wizard/cancel_booking_view.xml"
 
 	],

@@ -2,10 +2,12 @@
 
 from odoo import fields, models,api,_
 from datetime import datetime
+from odoo.exceptions import ValidationError
 
 class HotelRoomBooking(models.Model):
 	_name="hotel.room.booking"
 	_description="Hotel Rooms booking User"
+	_rec_name = "customer_id"
 
 	hotel_id = fields.Many2one("hotel.management",string="Hotel name")
 	customer_id = fields.Many2one("res.partner",string="Customer Name", required=True)
@@ -18,10 +20,17 @@ class HotelRoomBooking(models.Model):
 		('booked', 'Booked'),('cancel','Cancel')],
 		 string='Status', required=True, readonly=True, copy=False, default='draft')
 
+
+
 	@api.onchange("customer_id")
-	def _onchange_hostel_room_lines(self):
+	def _onchange_auto_fill_address_email(self):
 		for rec in self:
 			if rec.customer_id:
+				vals={
+					"user_id": rec.customer_id.name
+				}
+				data = self.env["hotel.room.booking.lines"].create(vals)
+				
 				record = self.env["res.partner"].search([('id','=',rec.customer_id.id)])
 				rec.user_email = record.email
 				if not record.street2:
@@ -30,14 +39,12 @@ class HotelRoomBooking(models.Model):
 					rec.user_address = (record.street)+"\n"+(record.street2)+"\n"+(record.zip)+"\n"+(record.city)
 
 
-
-	# 			record = self.env["hotel.room.booking.lines"].search([('hotel_room_id.hotel_name_id.id','=',rec.hotel_id.id)])
-	# 			print(" ********* ", record)
-	# 			rec.room_lines_ids.hotel_room_id = record.hotel_room_id
-
-	# 			return{
-	# 				'domain':{'room_lines_ids':[('hotel_room_id','=',record.id)]}
-	# 			}
+	# @api.onchange("hotel_id")
+	# def _onchange_hotel_rooms(self):
+	# 	for rec in self:
+	# 		context = dict(self._context)
+	# 		context["hotel_id"] = rec.hotel_id.id
+	# 		print("context ----------- ",context)
 
 	def Approve_booking(self):
 		for rec in self:
@@ -80,7 +87,7 @@ class HotelRoomBooking(models.Model):
 		for rec in self:
 			if rec.checkin_date:
 				if rec.checkout_date < rec.checkin_date:
-					raise ValidationError("Invalid checkout Date")
+					raise ValidationError("Invalid checkout Date.Checkout Date should be greater than checkin date")
 			
 
 			# if rec.checkin_date < datetime.now():

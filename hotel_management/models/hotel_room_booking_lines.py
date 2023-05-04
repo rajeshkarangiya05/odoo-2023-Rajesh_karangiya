@@ -12,11 +12,12 @@ class HotelRoomBookinglines(models.Model):
 	count_adults = fields.Integer("Number of Adults")
 	count_children = fields.Integer("Number of Children")
 	default_price = fields.Integer("Price of Room")
-	user_id = fields.Many2one("hotel.room.booking",string="User ID")
+	user_id = fields.Char(string="User ID")
 
 	# method to check if discount to be applied or not
 	@api.onchange("hotel_room_id")
 	def discount_price(self):
+		print("self[[[[[*****]]]]]-----",self._context)
 		todays_date = datetime.now().date()
 		for rec in self:
 			rec.default_price=0
