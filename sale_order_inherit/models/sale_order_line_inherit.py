@@ -7,7 +7,7 @@ class SaleOrderLine(models.Model):
 	p2 = fields.Char("p2")
 
 
-class ProductProduct(models.Model):
-	_inherit = '[product.product]'
+
+
 
 	

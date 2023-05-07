@@ -28,6 +28,7 @@ class HotelRoom(models.Model):
 	# name search method for searching room name as HotelName/Roomcode formate
 	def name_get(self):
 		result=[]
+		print("self[[[[[*****]]]]]-----",self._context)
 		for element in self:
 			hotel = element.hotel_name_id.name +"/"+ element.roomId
 			result.append((element.id,hotel))

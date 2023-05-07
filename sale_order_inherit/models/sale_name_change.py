@@ -1,6 +1,6 @@
 from odoo import fields,models,api,_
 
-class SalesNameChange(models.Model):
+class SaleNameChange(models.Model):
 	_inherit = ['sale.order']
 
 	partner_id = fields.Many2one(

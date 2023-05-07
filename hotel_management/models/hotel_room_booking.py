@@ -19,6 +19,17 @@ class HotelRoomBooking(models.Model):
 	state = fields.Selection(selection=[('draft', 'Draft'),
 		('booked', 'Booked'),('cancel','Cancel')],
 		 string='Status', required=True, readonly=True, copy=False, default='draft')
+	user_image = fields.Binary("User Image")
+	color = fields.Integer(string="Color",compute="_compute_get_color")
+
+	def _compute_get_color(self):
+		for rec in self:
+			if rec.state == 'draft':
+				rec.color = 1
+			elif rec.state == 'booked':
+				rec.color = 3
+			else:
+				rec.color = 4
 
 
 
@@ -33,18 +44,11 @@ class HotelRoomBooking(models.Model):
 				
 				record = self.env["res.partner"].search([('id','=',rec.customer_id.id)])
 				rec.user_email = record.email
+				rec.user_image = record.image_1920
 				if not record.street2:
 					rec.user_address = record.street+"\n"+(record.zip)+"\n"+(record.city)
 				else:
 					rec.user_address = (record.street)+"\n"+(record.street2)+"\n"+(record.zip)+"\n"+(record.city)
-
-
-	# @api.onchange("hotel_id")
-	# def _onchange_hotel_rooms(self):
-	# 	for rec in self:
-	# 		context = dict(self._context)
-	# 		context["hotel_id"] = rec.hotel_id.id
-	# 		print("context ----------- ",context)
 
 	def Approve_booking(self):
 		for rec in self:
