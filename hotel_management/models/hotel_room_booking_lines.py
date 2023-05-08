@@ -23,15 +23,15 @@ class HotelRoomBookinglines(models.Model):
 		for rec in self:
 			rec.default_price=0
 			record = self.env["hotel.room"].search([('id','=',rec.hotel_room_id.id)])
-			if rec.hotel_room_id:
+			if rec.hotel_room_id and record.discount_valid_from and record.discount_valid_to:
 				if todays_date >= record.discount_valid_from and todays_date <= record.discount_valid_to :
 					if record.discount > 0:
 						reduced_price = record.room_price - record.room_price*(record.discount/100)
 						rec.default_price = reduced_price
 					else:
 						rec.default_price = record.room_price
-				else:
-					rec.default_price = record.room_price
+			else:
+				rec.default_price = record.room_price
 
 	# method for defining number of childern and adults
 	@api.constrains('hotel_room_id')
@@ -44,11 +44,4 @@ class HotelRoomBookinglines(models.Model):
 			elif rec.count_adults <= 0 or rec.count_children <=0:
 				raise ValidationError("Invalid input for field Number of Childrens or Number of Adults .Number of Childrens or  Number of Adults should be greater than zero")
 	
-	# method to get rooms in dropdown for particular hotel
-	# @api.onchange("hotel_room_id")
-	# def name_get(self):
-	# 	print("self----------------",self._context)
-	# 	for rec in self:
-	# 		print("self._context.get('my_hotel')",self._context.get('my_hotel'))
-	# 		rec.hotel_room_id = self._context.get('my_hotel')
-	# 		print("rec.hotel_room_id.hotel_name_id",rec.hotel_room_id.hotel_name_id)
+	

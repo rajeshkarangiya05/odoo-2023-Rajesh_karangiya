@@ -6,3 +6,4 @@ class ProductProduct(models.Model):
 
 	p1 = fields.Char("P1")
 	p2 = fields.Char("P2")
+

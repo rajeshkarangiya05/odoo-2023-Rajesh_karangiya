@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from odoo import fields, models,api,_
+from odoo.osv import expression
 
 class HotelRoom(models.Model):
 	_name="hotel.room"
 	_description="Hotel Rooms"
+	_rec_name = "roomId"
 
 	roomId = fields.Char("Room ID", readonly=True)
 	number_of_rooms = fields.Integer("Number of Rooms")
@@ -25,7 +27,7 @@ class HotelRoom(models.Model):
 			vals["roomId"] = room_sequence
 		return super(HotelRoom,self).create(vals)
 
-	# name search method for searching room name as HotelName/Roomcode formate
+	# name get method for searching room name as HotelName/Roomcode formate
 	def name_get(self):
 		result=[]
 		print("self[[[[[*****]]]]]-----",self._context)
@@ -33,3 +35,9 @@ class HotelRoom(models.Model):
 			hotel = element.hotel_name_id.name +"/"+ element.roomId
 			result.append((element.id,hotel))
 		return result
+
+	@api.model
+	def _name_search(self, name, args=None, operator="ilike", limit=100, name_get_uid=None):
+		if self._context.get("passed_hotel"):
+			args = expression.AND([[('hotel_name_id', '=', self._context.get("passed_hotel"))],args])
+		return super(HotelRoom,self)._name_search(name,args,limit=limit,name_get_uid=None)
