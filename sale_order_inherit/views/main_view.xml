@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="main_template" name = "res_data">
+		<form action="/res/submit" model='post' data-success_page='/thanks'>
+			<span><b>Name: </b><input type="text" name="name" /></span><br/><br/>
+			<span><b>Address: </b><input type="text" name="address"/></span><br/><br/>
+			<span><b>Phone: </b><input type="text" name="phone"/></span><br/><br/>
+			<span><b>Email: </b><input type="text" name="email"/></span><br/><br/>
+			<button type="submit" class="btn btn-outline-success my-2 my-sm-0">Add</button>
+		</form>	
+	</template>
+
+	<template id="submit_template" name = "res_data">
+		
+		<h1>Thank you</h1>
+		
+	</template>
+</odoo>
