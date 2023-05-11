@@ -6,9 +6,10 @@
 	"summary":"Hotel Management app for easy booking of hotel room instantly",
 	"website":"https://www.aktivsoftware.com",
 	"license":"LGPL-3",
-	"depends":['mail'],
+	"depends":['mail','sale'],
 	"data":[
 		"security/ir.model.access.csv",
+		"security/hotel_security.xml",
 		"data/ir_sequence_room_id.xml",
 		"data/action_send_mail_checkout.xml",
 		"data/action_send_mail_checkout_template.xml",
@@ -18,7 +19,9 @@
 		"views/hotel_room_view.xml",
 		"views/hotel_room_booking_lines_view.xml",
 		"views/hotel_room_booking_view.xml",
-		"wizard/cancel_booking_view.xml"
+		"wizard/cancel_booking_view.xml",
+		"report/hotel_booking_details_report.xml",
+		"report/hotel_booking_details_report_template.xml",
 
 	],
 	"installable":True,

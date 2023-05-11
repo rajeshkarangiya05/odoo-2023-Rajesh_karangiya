@@ -8,6 +8,7 @@ class HotelRoomBooking(models.Model):
 	_name="hotel.room.booking"
 	_description="Hotel Rooms booking User"
 	_rec_name = "customer_id"
+	
 
 	hotel_id = fields.Many2one("hotel.management",string="Hotel name")
 	customer_id = fields.Many2one("res.partner",string="Customer Name", required=True)
@@ -111,22 +112,4 @@ class HotelRoomBooking(models.Model):
 				if rec.customer_id == data.customer_id and data.state == "draft" :
 					raise ValidationError("User %s already exists and is in draft state"% (rec.customer_id.name))
 
-	# method  for "Send Mail" button
-	def send_mail_to_user(self):
-		template_id = self.env.ref("hotel_management.hotel_user_id").id
-		ctx = {
-			'default_model': 'hotel.room.booking',
-			'default_res_id': self.ids[0],
-			'default_use_template': bool(template_id),
-			'default_template_id': template_id,
 
-		}
-		return {
-			'type': 'ir.actions.act_window',
-			'view_mode': 'form',
-			'res_model': 'mail.compose.message',
-			'views': [(False, 'form')],
-			'view_id': False,
-			'target': 'new',
-			'context': ctx,
-		}

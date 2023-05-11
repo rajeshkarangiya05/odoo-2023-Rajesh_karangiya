@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+	<template id="report_hotel_room_booking">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<div class="header">
+					Company Logo
+				</div>
+				<h3 style="color:red;"><span><span t-field="doc.customer_id"/></span></h3>
+				<table class="table table-sm"  style="background:#ADD8E6;">
+						<tr>
+							<th>Details</th>
+							<th>Information</th>
+							<th>Details</th>
+							<th>Information</th>
+						</tr>
+						<tr>
+							<td><span>Name: </span></td>
+							<td><span><span t-field="doc.customer_id"/></span></td>
+							<td><span>Address: </span></td>
+							<td><span><span t-field="doc.user_address"/></span></td>
+						</tr>
+						<tr>
+							<td><span>Check-in Date: </span></td>
+							<td><span><span t-field="doc.checkin_date"/></span></td>
+							<td><span>Check-out Date: </span></td>
+							<td><span><span t-field="doc.checkout_date"/></span></td>
+						</tr>
+						<tr>
+							<td><span>Hotel Name: </span></td>
+							<td><span><span t-field="doc.hotel_id"/></span></td>		
+						</tr>
+				</table>
+
+				<h5>Room Details</h5>
+						<table class="table table-sm"  style="background:#D3D3D3;">
+							
+								<tr>
+									<th>Room Number</th>
+									<th>Number of Childrens</th>
+									<th>Number of Adults</th>
+									<th>Payable Amount</th>
+								</tr>
+								<t t-foreach="doc.room_lines_ids" t-as="lines">
+								<tr>							
+									<td><span><span t-field="lines.hotel_room_id"/></span></td>
+									<td><span><span t-field="lines.count_adults"/></span></td>
+									<td><span><span t-field="lines.count_children"/></span></td>
+									<td><span ><span t-field="lines.default_price"/></span></td>
+								</tr>
+								</t>
+						</table>
+					<div class="footer" style="border-top: 1px solid black;">
+						page
+						
+					</div>
+			</t>
+		</t>
+	</template>
+	</odoo>

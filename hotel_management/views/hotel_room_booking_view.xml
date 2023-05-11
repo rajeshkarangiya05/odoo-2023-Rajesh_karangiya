@@ -23,7 +23,7 @@
 				<header>					
 					<button name="Approve_booking" class="oe_highlight" states="draft" string="Approve" type="object"/>
 					<button name="cancel_booking" class="oe_highlight" states="booked" string="Cancel" type="object"/>
-					<button name = "send_mail_to_user" type="object" class="oe_highlight" string="Send Booked Mail" attrs="{'invisible':['|',('state','=','draft'),('state','=','cancel')]}"/>
+					
 					<field name="state" widget="statusbar" statusbar_visible="draft,booked,cancel"/>
 				</header>
 				<sheet>
@@ -87,8 +87,7 @@
 				</templates>
 			</kanban>
 		</field>
-	</record> 
-
+	</record>
 	<record id="action_room_booking_view" model="ir.actions.act_window">
 		<field name="name">Hotel Room Booking</field>
 		<field name="res_model">hotel.room.booking</field>
