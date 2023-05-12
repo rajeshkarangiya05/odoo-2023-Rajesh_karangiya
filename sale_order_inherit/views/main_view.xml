@@ -2,18 +2,42 @@
 <odoo>
 
 	<template id="main_template" name = "res_data">
-		<form action="/res/submit" model='post' data-success_page='/thanks'>
-			<span><b>Name: </b><input type="text" name="name" /></span><br/><br/>
-			<span><b>Address: </b><input type="text" name="address"/></span><br/><br/>
-			<span><b>Phone: </b><input type="text" name="phone"/></span><br/><br/>
-			<span><b>Email: </b><input type="text" name="email"/></span><br/><br/>
-			<button type="submit" class="btn btn-outline-success my-2 my-sm-0">Add</button>
-		</form>	
+		<t t-call="website.layout">
+			<!-- <form action="/res/submit" model='post' data-success_page='/thanks'>
+				<span><b>Name: </b><input type="text" name="name" /></span><br/><br/>
+				<span><b>Address: </b><input type="text" name="address"/></span><br/><br/>
+				<span><b>Phone: </b><input type="text" name="phone"/></span><br/><br/>
+				<span><b>Email: </b><input type="text" name="email"/></span><br/><br/>
+				<label for="Country"><b>Choose a Country: </b></label>
+				<select name='Country' id="country">
+					<t t-foreach="data" t-as="element">
+						<option t-att-value="element.name"><t t-out="element.name"/></option>
+					</t>
+				</select><br/><br/>
+				<button type="submit">Submit</button><br/><br/>
+				<img src="" id="avatar_preview" class="avatar" width="150px"/>
+
+				<input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png,image/gif"/>
+				<input type="hidden" name="MAX_FILE_SIZE" value="5000" />
+
+			</form> -->
+			<div class="container">
+
+				<h1 class="main_header">
+					<i class="fa fa-first-order mr-2"/>
+					My first css page
+					<i class="fa fa-first-order ml-2"/>
+				</h1>
+				<p class="main_header_desc">
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s <a target="_blank" href="https://www.google.com">Click to read more</a> Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+				</p>
+			</div>
+
+		</t>
+		
 	</template>
 
-	<template id="submit_template" name = "res_data">
-		
-		<h1>Thank you</h1>
-		
+	<template id="submit_template" name = "res_data">		
+		<h1>Thank you</h1>		
 	</template>
 </odoo>
