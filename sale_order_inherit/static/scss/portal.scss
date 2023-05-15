@@ -9,7 +9,23 @@
 	text-shadow: 2px 2px 5px #a51238;
 	text-transform: capitalize;
     font-family: monospace;
+    position: relative;
+	.icon_left{
+		position: absolute;
+	    top: 0;
+	    left: 0;
+	    transform: translate(-50%, -50%) !important;	
+	}
+	.icon_right{
+		position: absolute;
+	    bottom: 0;
+	    right: 0;
+	    transform: translate(50%, 50%) !important;	
+	}
 }
 .main_header_desc{
 	text-align: justify;	
+}
+.my_first_page{
+		
 }
