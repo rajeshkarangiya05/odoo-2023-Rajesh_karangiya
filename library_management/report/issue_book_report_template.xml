@@ -9,13 +9,16 @@
 					Company Logo
 				</div>
 				<h3 style="color:red;"><span><span t-field="doc.name_id"/></span></h3>
-				<table class="table table-sm"  style="background:#ADD8E6;">
+				<table class="table">
+					<thead>
 						<tr>
 							<th>Details</th>
 							<th>Information</th>
 							<th>Details</th>
 							<th>Information</th>
 						</tr>
+					</thead>
+					<tbody>
 						<tr>
 							<td><span>Address </span></td>
 							<td><span><span t-field="doc.address"/></span></td>
@@ -33,10 +36,11 @@
 							<td><span>Issue Date </span></td>
 							<td><span><span t-field="doc.issue_date"/></span></td>		
 						</tr>
+					</tbody>
 				</table>
 
 				<h5>Issued book</h5>
-						<table class="table table-sm"  style="background:#D3D3D3;">
+						<table class="table table-sm" >
 							
 								<tr>
 									<th>Book Name</th>
