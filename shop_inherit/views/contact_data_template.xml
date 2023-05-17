@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="Contact_data" name = 'Contact Data'>
+		<t t-call="website.layout">
+			<div class="main_container">
+				<t t-foreach = "record" t-as="element">
+					<div class="all_info">
+						<div class="try">
+							<span><b>Name: </b><t t-out="element.name"/><br/></span>
+							<span><b>Email: </b><t t-out="element.email"/><br/></span>
+							<span><b>Phone: </b><t t-out="element.phone"/><br/></span>
+						</div>
+						<div>
+							<img t-att-src="'/web/image/res.partner/' + str(element.id) + '/image_1920'" widget="image" class="avatar"/>
+						</div>
+					</div>
+				</t>
+			</div>
+		</t>
+	</template>
+</odoo>

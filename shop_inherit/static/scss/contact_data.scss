@@ -1,0 +1,42 @@
+
+.main_container{
+	display:flex;
+	flex-wrap: wrap;
+	
+
+	
+}
+.try{
+	text-align: left;
+	margin: auto;
+
+
+}
+.all_info{
+	
+	display:flex;
+	flex-wrap: wrap;
+	margin: 10px;
+	padding: 10px;
+	border: 1px solid;
+	box-shadow: 5px 5px 13px black;
+
+}
+
+.all_info:hover{
+	background-color: #cbd8eb;
+ 	transform: scale(1.1);
+}
+
+.all_info > div > img {
+	height: 120px;
+	width: 120px;
+	margin-left: 15px;
+	border: 1px solid;
+
+
+}
+.try > span > b{
+	font-style:italic;
+	
+}
