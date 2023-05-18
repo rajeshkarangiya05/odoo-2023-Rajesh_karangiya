@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id = "stock_inherit" name="Stock Inherit" inherit_id="stock.report_delivery_document">
+		<xpath expr="//div[hasclass('page')]/table[@name='stock_move_line_table']/thead/tr/th[@name='th_sml_quantity']" position="after">
+			<th name="th_taxes"><strong>Taxes</strong></th>
+			<th name="th_unit"><strong>Unit Price</strong></th>
+			<th name="th_sub"><strong>Sub Total</strong></th>
+		</xpath>
+	</template>
+
+	<template id = "stock_report_delivery_aggregated_move_lines_inherit"
+		name="Data for column" inherit_id="stock.stock_report_delivery_aggregated_move_lines">
+		<xpath expr="//tr/td[@name='move_line_aggregated_qty_done']" position="after">
+			<td>
+				<span t-esc="aggregated_lines[line]['product']['taxes_id']['name']"/>
+			</td>
+			<td>
+				<span t-esc="aggregated_lines[line]['product']['list_price']"/>
+			</td>
+		</xpath>
+	</template>
+ 
+</odoo>
