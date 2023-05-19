@@ -5,14 +5,14 @@
 	"category":'sales',
 	'depends':['sale','contacts','product','website'],
 	"data":[
-		"security/sale_test_group.xml",
+		"security/ir.model.access.csv",
 		"data/action_merge_quotation.xml",
+		"data/action_split_delivery.xml",
 		"views/sale_name_change_view.xml",
 		"views/product_product_inherit_view.xml",
 		"views/sale_order_line_inherit_view.xml",
 		"views/main_view.xml",
-
-
+		"wizards/split_delivery_wizard_view.xml",
 
 	],
 	"assets":{

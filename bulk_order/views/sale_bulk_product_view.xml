@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="sale_bulk_product_view" model="ir.ui.view">
+		<field name="name">sale.bulk_product.view</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//form/sheet/group[@name='sale_header']/group[@name='order_details']/field[@name='payment_term_id']" position="after">
+				<field name="bulk_product_id"/>				
+			</xpath>
+		</field>
+	</record>
+</odoo>

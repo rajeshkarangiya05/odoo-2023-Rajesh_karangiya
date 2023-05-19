@@ -26,3 +26,19 @@ class SaleNameChange(models.Model):
 		else:
 			raise ValidationError('The state of Quotation is not draft or you have choose multiple Gharak')
 
+	def action_slip_delivery(self):
+		new_list=[]
+		for rec in self.order_line:
+			new_list.append((0,0,{'product_data_id':rec.product_id.id}))
+		return {
+			"type":"ir.actions.act_window",
+			"name":"Split Delivery",
+			"res_model":"split.delivery.wizard",
+			"view_mode":"form",
+			"target":"new",
+			"context": {
+				"default_split_product_ids": new_list
+			}
+
+		}
+

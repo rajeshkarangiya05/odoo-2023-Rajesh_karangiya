@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+		<record id="action_split_delivery" model="ir.actions.server">
+			<field name="name">Split Delivery server</field>
+			<field name="model_id" ref="sale_order_inherit.model_sale_order"/>
+			<field name="binding_model_id" ref="sale_order_inherit.model_sale_order"/>
+			<field name="binding_view_types">form</field>
+			<field name="state">code</field>
+			<field name="code">action = records.action_slip_delivery()</field>
+		</record>
+	</data>
+
+	  <record id="action_split_delivery_new" model="ir.actions.act_window">
+		<field name="name">Split Delivery act window</field>
+		<field name="res_model">split.delivery.wizard</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="sale_order_inherit.sale_split_delivery_wizard_view_form"/>
+		<field name="target">new</field>
+		<field name="binding_model_id" ref="model_sale_order"/>
+		<field name="binding_view_types">form</field>
+	</record>
+</odoo>

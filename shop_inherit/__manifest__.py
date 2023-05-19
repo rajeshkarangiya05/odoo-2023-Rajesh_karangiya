@@ -5,7 +5,7 @@
 	"category":"Inherit",
 	"summary":"Shop Inherit",
 	"description":"Shop Inherit",
-	"depends":['website_sale','sale','product'],
+	"depends":['website_sale','sale','product','sale_order_inherit'],
 	"data":[
 		"views/add_menu_contact.xml",
 		"views/contact_data_template.xml",
