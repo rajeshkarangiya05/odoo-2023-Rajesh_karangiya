@@ -28,8 +28,14 @@ class SaleNameChange(models.Model):
 
 	def action_slip_delivery(self):
 		new_list=[]
-		for rec in self.order_line:
-			new_list.append((0,0,{'product_data_id':rec.product_id.id}))
+		print('self-----------',self.picking_ids.mapped('move_ids_without_package'))
+		for move_rec in self.picking_ids.filtered(lambda a: a.state in ['assigned','confirmed']).mapped('move_ids_without_package'):
+			new_list.append(
+				(0,0,{
+					'product_data_id':move_rec.product_id.id,
+					'move_id':move_rec.id
+					}))
+		# for rec in self.order_line:
 		return {
 			"type":"ir.actions.act_window",
 			"name":"Split Delivery",
@@ -37,7 +43,8 @@ class SaleNameChange(models.Model):
 			"view_mode":"form",
 			"target":"new",
 			"context": {
-				"default_split_product_ids": new_list
+				"default_split_product_ids": new_list,
+				"sale_order_id": self.id,
 			}
 
 		}
