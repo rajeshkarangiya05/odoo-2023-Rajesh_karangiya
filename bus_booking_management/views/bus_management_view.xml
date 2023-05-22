@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="bus_management_view_tree" model="ir.ui.view">
+		<field name="name">bus.management.view.tree</field>
+		<field name="model">bus.management</field>
+		<field name="arch" type="xml">
+				<tree>
+					<field name="country_id"/>
+					<field name="state_id"/>
+					<field name="owner"/>
+					<field name="from_id"/>
+					<field name="to_id"/>
+					<field name="journey_start_time" widget="float_time"/>
+					<field name="journey_end_time" widget="float_time"/>
+					<field name="bus_ids"/>
+				</tree>
+		</field>
+	</record>
+
+	<record id="bus_management_view_form" model="ir.ui.view">
+		<field name="name">bus.management.view.form</field>
+		<field name="model">bus.management</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="country_id"/>
+						<field name="state_id"/>
+						<field name="owner"/>
+						<field name="from_id"/>
+						<field name="to_id"/>						
+						<field name="journey_start_time" widget="float_time"/>
+						<field name="journey_end_time" widget="float_time"/>
+						<field name="bus_ids" widget="many2many_tags"/>			
+					</group>				
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	
+	<record id="action_bus_management" model="ir.actions.act_window">
+		<field name="name">Bus Management</field>
+		<field name="res_model">bus.management</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="menu_bus_management"
+			name="Bus Management"
+			parent="menu_bus_booking"
+			action="action_bus_management"
+			sequence="2"/>
+</odoo>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+bus_booking_management.access_user_bus_booking,access_user_bus_booking,bus_booking_management.model_user_bus_booking,base.group_user,1,1,1,1
+bus_booking_management.access_bus_data,access_bus_data,bus_booking_management.model_bus_data,base.group_user,1,1,1,1
+bus_booking_management.access_bus_specific,access_bus_specific,bus_booking_management.model_bus_specific,base.group_user,1,1,1,1
+bus_booking_management.access_bus_management,access_bus_management,bus_booking_management.model_bus_management,base.group_user,1,1,1,1
+

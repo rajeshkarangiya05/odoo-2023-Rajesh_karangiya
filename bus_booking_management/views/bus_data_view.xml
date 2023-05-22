@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="bus_data_view_tree" model="ir.ui.view">
+		<field name="name">bus.data.view.tree</field>
+		<field name="model">bus.data</field>
+		<field name="arch" type="xml">
+				<tree>
+					<field name="company"/>
+					<field name="bus_type"/>
+					<field name="specification_ids"/>
+				</tree>
+		</field>
+	</record>
+
+	<record id="bus_data_view_form" model="ir.ui.view">
+		<field name="name">bus.data.view.form</field>
+		<field name="model">bus.data</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="bus_type"/>
+						<field name="specification_ids" widget="many2many_tags"/>
+						<field name="company"/>				
+					</group>				
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="bus_specific_view_tree" model="ir.ui.view">
+		<field name="name">bus.specific.view.tree</field>
+		<field name="model">bus.specific</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="specification"/>
+			</tree>
+		</field>
+	</record>
+	<record id="bus_specific_view_form" model="ir.ui.view">
+		<field name="name">bus.specific.view.form</field>
+		<field name="model">bus.specific</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="specification"/>			
+					</group>				
+				</sheet>
+			</form>
+		</field>
+	</record>
+	
+	<record id="action_bus_data" model="ir.actions.act_window">
+		<field name="name">Bus Data</field>
+		<field name="res_model">bus.data</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="action_bus_specific" model="ir.actions.act_window">
+		<field name="name">Bus Specific</field>
+		<field name="res_model">bus.specific</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="menu_bus_booking"
+			name="Bus Booking"
+			sequence="0"/>
+
+	<menuitem id="menu_bus_data"
+			name="Bus Data"
+			parent="menu_bus_booking"
+			action="action_bus_data"
+			sequence="1"/>
+
+	<menuitem id="menu_bus_specific"
+			name="Bus Specific"
+			parent="menu_bus_data"
+			action="action_bus_specific"
+			sequence="0"/>
+</odoo>
