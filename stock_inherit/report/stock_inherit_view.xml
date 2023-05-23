@@ -17,6 +17,9 @@
 			<td>
 				<span t-esc="aggregated_lines[line]['product']['list_price']"/>
 			</td>
+			<td>
+				<span t-esc="aggregated_lines[line]['sub_total']"/>
+			</td>
 		</xpath>
 	</template>
  

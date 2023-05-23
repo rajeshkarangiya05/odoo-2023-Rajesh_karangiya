@@ -27,8 +27,9 @@ class BusManagement(models.Model):
 					raise ValidationError("From and To destination are same")
 
 	# method to duplicate the record
-	# def action_duplicate(self):
-		
+	def action_duplicate(self):
+		for rec in self:
+			rec.copy()
 
 
 

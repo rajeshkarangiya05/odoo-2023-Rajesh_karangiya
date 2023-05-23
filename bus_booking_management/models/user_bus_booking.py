@@ -6,6 +6,11 @@ class HotelRoomBooking(models.Model):
 	_name="user.bus.booking"
 
 	name = fields.Char(string="Name", required=True)
+	way = fields.Selection(selection=[('one','One Way'),('round','Round Trip')], default="one")
+	country_id = fields.Many2one('res.country',string="Country")
+	state_id = fields.Many2one('res.country.state', string="State",domain="[('country_id', '=', country_id)]")
+	from_id = fields.Many2one('res.city', string="From", domain="[('state_id', '=', state_id)]")
+	to_id = fields.Many2one('res.city', string="To", domain="[('state_id', '=', state_id)]")
 	id_proof = fields.Binary(string="ID Proof")
 	date = fields.Date("Departure Date")
 	from_destination = fields.Char("From")

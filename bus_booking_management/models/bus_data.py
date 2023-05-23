@@ -9,6 +9,8 @@ class BusData(models.Model):
 	bus_type = fields.Selection(selection=[('sleeper','Sleeper'),('seater','Seater'),('combo','Sleeper-seater')],string="Type of Bus")
 	specification_ids = fields.Many2many('bus.specific','specific_ids',string="Facilities")
 	company = fields.Char("Manufacturing Company", required=True)
+	seater_seat = fields.Integer("Total Seater seats")
+	sleeper_seat = fields.Integer("Total Slepper seater")
 
 	@api.model
 	def _name_search(self,name,args=None,operator='ilike',limit=100,name_get_uid=None):

@@ -5,6 +5,10 @@
 		<field name="model">user.bus.booking</field>
 		<field name="arch" type="xml">
 				<tree>
+					<field name="way"/>
+					<field name="country_id"/>
+					<field name="state_id"/>
+					<field name="from_id"/>
 					<field name="name"/>
 					<field name="id_proof"/>
 					<field name="date"/>
@@ -27,6 +31,10 @@
 				</header>
 				<sheet>
 					<group>
+						<field name="way" widget="radio"  options="{'horizontal': true}"/>
+						<field name="country_id"/>
+						<field name="state_id"/>
+						<field name="from_id"/>
 						<field name="name"/>
 						<field name="id_proof"/>
 						<field name="date"/>

@@ -8,6 +8,8 @@
 					<field name="company"/>
 					<field name="bus_type"/>
 					<field name="specification_ids"/>
+					<field name="seater_seat"/>
+					<field name="sleeper_seat"/>
 				</tree>
 		</field>
 	</record>
@@ -21,7 +23,9 @@
 					<group>
 						<field name="bus_type"/>
 						<field name="specification_ids" widget="many2many_tags"/>
-						<field name="company"/>				
+						<field name="company"/>						
+						<field name="seater_seat" attrs="{'invisible':[('bus_type','=','sleeper')]}"/>
+						<field name="sleeper_seat" attrs="{'invisible':[('bus_type','=','seater')]}"/>			
 					</group>				
 				</sheet>
 			</form>
