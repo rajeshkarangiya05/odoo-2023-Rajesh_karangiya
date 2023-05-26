@@ -12,7 +12,8 @@ class HotelRoomBooking(models.Model):
 
 	hotel_id = fields.Many2one("hotel.management",string="Hotel name")
 	customer_id = fields.Many2one("res.partner",string="Customer Name", required=True)
-	user_email = fields.Char("Email")
+	partner_email = fields.Char("Email", related='customer_id.email', store=True)
+	user_email = fields.Char("OLD Email")
 	user_address = fields.Text("Address")
 	checkin_date = fields.Datetime("Checkin-Date", required=True)
 	checkout_date = fields.Datetime("Checkout-Date", required=True)
@@ -37,6 +38,7 @@ class HotelRoomBooking(models.Model):
 	# method to fill fields like user_email, user_address, user_image 
 	@api.onchange("customer_id")
 	def _onchange_auto_fill_address_email(self):
+		print("\n\n-----------in-------------------------------------------------asideeeeeee")
 		for rec in self:
 			if rec.customer_id:
 				
